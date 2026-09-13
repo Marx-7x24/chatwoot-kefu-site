@@ -1,0 +1,13 @@
+# 本地项目元数据（WorkBuddy）
+.workbuddy/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 依赖与日志
+node_modules/
+*.log
+
+# Wrangler / Cloudflare
+.wrangler/

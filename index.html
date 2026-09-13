@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  Chatwoot 中文介绍 + 容器化部署服务 · 单页官网
+  ------------------------------------------------------------
+  【待办】
+    1) 联系方式：已填 Telegram @chatwoot_kefu / 邮箱 marxkali32502@gmail.com
+    2) 品牌名："Chatwoot 客服"（页头 / 页脚 / 版权共 3 处），改名请全局替换
+    3) 价格：方案卡写的是「按需报价 / 面议」，如要明码标价自行替换
+  ============================================================
+-->
+<html lang="zh-CN" data-lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chatwoot 中文站 — 开源自托管客服系统 · 容器化一键部署</title>
+<meta name="description" content="Chatwoot 是 Intercom / Zendesk 的开源替代品，集全渠道收件箱、AI 客服 Captain、帮助中心于一体（GitHub 36k+ Star，MIT 协议）。我们提供 Docker 容器化部署服务，把系统装到你自己服务器上，数据完全自主可控。">
+<meta name="keywords" content="Chatwoot,开源客服系统,自托管客服,Chatwoot 部署,Chatwoot Docker,在线客服,Intercom 替代,Zendesk 替代,WhatsApp 客服">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chatwoot 中文站 — 开源自托管客服系统 · 容器化一键部署">
+<meta property="og:description" content="36k+ Star 的开源客服系统，装到你自己服务器上：全渠道收件箱 + AI 客服 + 帮助中心，数据自主可控。">
+<meta name="theme-color" content="#1F93FF">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%231F93FF'/%3E%3Cpath d='M26 32h48v30H52l-14 12V62H26z' fill='white'/%3E%3C/svg%3E">
+<style>
+/* ===================== Design Tokens ===================== */
+:root{
+  --brand:#1F93FF;
+  --brand-600:#0B7DE8;
+  --brand-700:#0A63B8;
+  --violet:#7C5CFF;
+  --ink:#0B1220;
+  --ink-2:#1E293B;
+  --body:#475569;
+  --muted:#7C8AA0;
+  --line:#E5EAF1;
+  --bg:#FFFFFF;
+  --bg-soft:#F5F8FC;
+  --bg-ink:#0A1020;
+  --ok:#10B981;
+  --warn:#F59E0B;
+  --radius:16px;
+  --radius-lg:24px;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.06),0 1px 3px rgba(15,23,42,.04);
+  --shadow:0 10px 30px -12px rgba(15,23,42,.15);
+  --shadow-lg:0 30px 60px -24px rgba(15,23,42,.28);
+  --maxw:1160px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{
+  margin:0;font-family:var(--font);color:var(--body);background:var(--bg);
+  line-height:1.7;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+h1,h2,h3,h4{color:var(--ink);line-height:1.25;margin:0;font-weight:700;letter-spacing:-.02em;}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+.container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+.section{padding:96px 0;}
+.section--soft{background:var(--bg-soft);}
+.section--ink{background:var(--bg-ink);color:#B9C4D6;}
+.section--ink h2,.section--ink h3,.section--ink h4{color:#fff;}
+
+/* ===================== Header ===================== */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid transparent;transition:border-color .25s,box-shadow .25s;
+}
+.header.is-stuck{border-bottom-color:var(--line);box-shadow:0 6px 24px -18px rgba(15,23,42,.4);}
+.header__inner{display:flex;align-items:center;gap:28px;height:68px;}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink);font-size:17px;letter-spacing:-.02em;flex:none;}
+.brand__mark{
+  width:32px;height:32px;border-radius:9px;flex:none;
+  background:linear-gradient(135deg,var(--brand) 0%,var(--violet) 100%);
+  display:grid;place-items:center;box-shadow:0 6px 14px -6px rgba(31,147,255,.7);
+}
+.brand__mark svg{width:18px;height:18px;}
+.brand__sub{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+.nav{display:flex;align-items:center;gap:4px;margin-left:8px;}
+.nav a{
+  padding:8px 13px;border-radius:9px;font-size:14.5px;font-weight:500;color:var(--ink-2);
+  transition:background .18s,color .18s;white-space:nowrap;
+}
+.nav a:hover{background:var(--bg-soft);color:var(--brand-600);}
+.header__right{display:flex;align-items:center;gap:10px;margin-left:auto;flex:none;}
+.lang{
+  display:flex;background:var(--bg-soft);border:1px solid var(--line);border-radius:9px;padding:2px;gap:2px;
+}
+.lang button{
+  border:0;background:transparent;font:inherit;font-size:13px;font-weight:600;color:var(--body);
+  padding:5px 11px;border-radius:7px;cursor:pointer;transition:.18s;
+}
+.lang button.is-on{background:#fff;color:var(--brand-600);box-shadow:var(--shadow-sm);}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font:inherit;font-weight:600;border-radius:10px;border:1px solid transparent;
+  padding:11px 20px;cursor:pointer;transition:transform .15s,box-shadow .2s,background .2s,color .2s;
+  white-space:nowrap;font-size:15px;
+}
+.btn:active{transform:translateY(1px);}
+.btn--primary{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-600) 100%);color:#fff;box-shadow:0 10px 24px -12px rgba(31,147,255,.9);}
+.btn--primary:hover{box-shadow:0 14px 30px -12px rgba(31,147,255,1);}
+.btn--ghost{background:#fff;border-color:var(--line);color:var(--ink);}
+.btn--ghost:hover{border-color:#CBD5E1;background:#FCFDFE;}
+.btn--sm{padding:9px 16px;font-size:14px;}
+.btn--lg{padding:14px 26px;font-size:16px;}
+.btn--onink{background:#fff;color:var(--ink);}
+.btn--onink-line{background:transparent;border-color:rgba(255,255,255,.28);color:#fff;}
+.btn--onink-line:hover{background:rgba(255,255,255,.1);}
+.burger{display:none;border:1px solid var(--line);background:#fff;border-radius:9px;width:38px;height:38px;cursor:pointer;padding:0;place-items:center;}
+.burger svg{width:18px;height:18px;}
+
+/* ===================== Hero ===================== */
+.hero{position:relative;padding:76px 0 88px;overflow:hidden;}
+.hero::before{
+  content:"";position:absolute;inset:-30% -10% auto -10%;height:760px;z-index:-1;
+  background:
+    radial-gradient(46% 52% at 18% 12%,rgba(31,147,255,.16) 0%,transparent 62%),
+    radial-gradient(40% 46% at 84% 4%,rgba(124,92,255,.15) 0%,transparent 64%),
+    radial-gradient(38% 40% at 62% 46%,rgba(16,185,129,.07) 0%,transparent 70%);
+}
+.hero__grid{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center;}
+.pill{
+  display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--brand-700);
+  background:rgba(31,147,255,.09);border:1px solid rgba(31,147,255,.2);
+  padding:6px 13px 6px 8px;border-radius:999px;margin-bottom:22px;
+}
+.pill b{background:var(--brand);color:#fff;font-size:11px;padding:2px 8px;border-radius:999px;letter-spacing:.02em;}
+.hero h1{font-size:clamp(34px,4.2vw,54px);letter-spacing:-.035em;font-weight:800;}
+.hero h1 .grad{
+  background:linear-gradient(100deg,var(--brand) 0%,var(--violet) 88%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero__lead{font-size:18px;margin-top:22px;max-width:560px;line-height:1.75;}
+.hero__cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap;}
+.hero__note{margin-top:18px;font-size:13.5px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.hero__note svg{width:15px;height:15px;color:var(--ok);flex:none;}
+.hero__stats{display:flex;gap:34px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line);flex-wrap:wrap;}
+.stat__num{font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1.2;}
+.stat__num span{color:var(--brand);}
+.stat__label{font-size:13px;color:var(--muted);}
+
+/* ===================== Mock UI ===================== */
+.mock{
+  border-radius:var(--radius-lg);background:#fff;border:1px solid var(--line);
+  box-shadow:var(--shadow-lg);overflow:hidden;position:relative;
+}
+.mock__bar{display:flex;align-items:center;gap:7px;padding:12px 15px;background:#FBFCFE;border-bottom:1px solid var(--line);}
+.dot{width:10px;height:10px;border-radius:50%;}
+.dot--r{background:#FF6058;}.dot--y{background:#FFBD2E;}.dot--g{background:#28C840;}
+.mock__url{
+  margin-left:10px;font-size:11.5px;font-family:var(--mono);color:var(--muted);
+  background:#F1F5F9;border-radius:6px;padding:3px 10px;flex:1;overflow:hidden;white-space:nowrap;
+}
+.mock__body{display:grid;grid-template-columns:132px 1fr;}
+.mock__side{background:#FBFCFE;border-right:1px solid var(--line);padding:14px 10px;display:flex;flex-direction:column;gap:13px;}
+.mock__side .m-title{height:8px;border-radius:4px;background:#E2E8F0;}
+.mock__side .m-title.w70{width:70%;}.mock__side .m-title.w45{width:45%;}
+.mock__side .m-item{display:flex;align-items:center;gap:8px;}
+.mock__side .m-item i{width:20px;height:20px;border-radius:6px;background:#E8EEF6;flex:none;display:block;}
+.mock__side .m-item b{height:7px;border-radius:4px;background:#E8EEF6;flex:1;display:block;}
+.mock__side .m-item.is-on i{background:linear-gradient(135deg,var(--brand),var(--violet));}
+.mock__side .m-item.is-on b{background:#CFE2FA;}
+.mock__chat{padding:16px 18px;display:flex;flex-direction:column;gap:11px;min-height:270px;}
+.bubble{max-width:80%;padding:9px 13px;font-size:12.5px;line-height:1.55;border-radius:14px;color:var(--ink-2);}
+.bubble--in{background:#F1F5F9;border-bottom-left-radius:5px;align-self:flex-start;}
+.bubble--out{background:linear-gradient(135deg,var(--brand),var(--brand-600));color:#fff;border-bottom-right-radius:5px;align-self:flex-end;}
+.bubble--cap{
+  background:linear-gradient(135deg,#F3F0FF,#EEF6FF);border:1px solid #E3DDFF;color:#4C1D95;
+  border-bottom-left-radius:5px;align-self:flex-start;font-weight:600;
+}
+.bubble .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--violet);margin-right:5px;}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto;padding-top:6px;}
+.chip{font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;background:#F1F5F9;color:var(--body);border:1px solid var(--line);}
+.chip--on{background:rgba(31,147,255,.1);color:var(--brand-700);border-color:rgba(31,147,255,.24);}
+.mock__float{
+  position:absolute;right:-16px;bottom:-18px;background:#fff;border:1px solid var(--line);
+  border-radius:14px;padding:11px 15px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;
+}
+.mock__float .ok-dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(16,185,129,.16);}
+.mock__float small{display:block;font-size:11px;color:var(--muted);}
+.mock__float strong{font-size:13px;color:var(--ink);font-weight:700;}
+
+/* ===================== Marquee / stack bar ===================== */
+.stackbar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#FCFDFF;}
+.stackbar__inner{display:flex;align-items:center;gap:26px;padding:20px 0;flex-wrap:wrap;justify-content:center;}
+.stackbar__label{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.04em;}
+.stackbar__items{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;}
+.tech{
+  font-size:13px;font-weight:600;color:var(--ink-2);background:#fff;border:1px solid var(--line);
+  padding:7px 14px;border-radius:9px;box-shadow:var(--shadow-sm);display:flex;align-items:center;gap:7px;
+}
+.tech i{width:7px;height:7px;border-radius:50%;background:var(--brand);display:block;}
+.tech:nth-child(2n) i{background:var(--violet);}
+.tech:nth-child(3n) i{background:var(--ok);}
+
+/* ===================== Section heading ===================== */
+.head{max-width:760px;margin:0 auto 56px;text-align:center;}
+.head--left{margin-left:0;text-align:left;}
+.eyebrow{
+  display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--brand-600);margin-bottom:14px;
+}
+.head h2{font-size:clamp(27px,3vw,38px);letter-spacing:-.03em;}
+.head p{margin-top:16px;font-size:17px;color:var(--body);}
+.section--ink .head p{color:#93A2BA;}
+.section--ink .eyebrow{color:#5CB0FF;}
+
+/* ===================== Cards ===================== */
+.grid{display:grid;gap:22px;}
+.grid--2{grid-template-columns:repeat(2,1fr);}
+.grid--3{grid-template-columns:repeat(3,1fr);}
+.grid--4{grid-template-columns:repeat(4,1fr);}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;
+  transition:transform .22s,box-shadow .22s,border-color .22s;position:relative;overflow:hidden;
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#D6E3F5;}
+.card h3{font-size:19px;margin-bottom:10px;}
+.card p{font-size:15px;}
+.card__icon{
+  width:46px;height:46px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px;
+  background:linear-gradient(135deg,rgba(31,147,255,.14),rgba(124,92,255,.14));color:var(--brand-600);
+}
+.card__icon svg{width:22px;height:22px;}
+.card ul{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;}
+.card ul li{font-size:14.5px;padding-left:24px;position:relative;color:var(--body);}
+.card ul li::before{
+  content:"";position:absolute;left:0;top:9px;width:14px;height:14px;border-radius:50%;
+  background:rgba(16,185,129,.14);
+}
+.card ul li::after{
+  content:"";position:absolute;left:4.5px;top:13px;width:5px;height:2.5px;border-left:1.6px solid var(--ok);
+  border-bottom:1.6px solid var(--ok);transform:rotate(-45deg);
+}
+.card--feature{padding:30px;}
+
+/* ===================== Channels ===================== */
+.channels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.chan{
+  display:flex;flex-direction:column;align-items:center;gap:11px;padding:24px 12px;
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);transition:.22s;
+}
+.chan:hover{transform:translateY(-3px);box-shadow:var(--shadow);}
+.chan__ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#fff;}
+.chan__ic svg{width:22px;height:22px;}
+.chan b{font-size:14.5px;color:var(--ink);font-weight:600;}
+.chan small{font-size:12px;color:var(--muted);}
+
+/* ===================== Compare ===================== */
+.cmp{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+.cmp th,.cmp td{padding:16px 20px;text-align:left;font-size:15px;border-bottom:1px solid var(--line);}
+.cmp thead th{background:#FAFCFF;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.cmp tbody tr:last-child td{border-bottom:0;}
+.cmp td:first-child{font-weight:600;color:var(--ink);}
+.cmp .yes{color:var(--ok);font-weight:600;display:inline-flex;align-items:center;gap:6px;}
+.cmp .no{color:#94A3B8;display:inline-flex;align-items:center;gap:6px;}
+.cmp .yes svg,.cmp .no svg{width:16px;height:16px;flex:none;}
+.cmp__hl{background:rgba(31,147,255,.05);}
+
+/* ===================== Plans ===================== */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start;}
+.plan{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);padding:32px 28px;
+  display:flex;flex-direction:column;gap:20px;position:relative;transition:.25s;
+}
+.plan:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);}
+.plan--hot{
+  border-color:transparent;box-shadow:0 0 0 2px var(--brand),0 26px 50px -26px rgba(31,147,255,.6);
+}
+.plan__tag{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--brand),var(--violet));color:#fff;
+  font-size:12px;font-weight:700;padding:5px 15px;border-radius:999px;letter-spacing:.03em;white-space:nowrap;
+}
+.plan h3{font-size:20px;}
+.plan__desc{font-size:14.5px;color:var(--muted);min-height:44px;}
+.plan__price{display:flex;align-items:baseline;gap:8px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.plan__price .amt{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.03em;}
+.plan__price .unit{font-size:13.5px;color:var(--muted);}
+.plan ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px;}
+.plan ul li{font-size:14.5px;padding-left:26px;position:relative;color:var(--body);}
+.plan ul li strong{color:var(--ink);font-weight:600;}
+.plan ul li svg{position:absolute;left:0;top:5px;width:17px;height:17px;color:var(--brand);}
+.plan .btn{margin-top:auto;}
+
+/* ===================== Steps ===================== */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:s;}
+.step{position:relative;padding:26px 22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);}
+.step__n{
+  width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:15px;
+  background:linear-gradient(135deg,var(--brand),var(--violet));color:#fff;margin-bottom:16px;
+}
+.step h4{font-size:16.5px;margin-bottom:8px;}
+.step p{font-size:14px;color:#93A2BA;}
+.step::after{
+  content:"";position:absolute;top:43px;right:-11px;width:22px;height:2px;
+  background:linear-gradient(90deg,rgba(255,255,255,.3),transparent);
+}
+.step:last-child::after{display:none;}
+
+/* ===================== FAQ ===================== */
+.faq{max-width:840px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
+.qa{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:border-color .2s,box-shadow .2s;}
+.qa[open]{border-color:#CFE2FA;box-shadow:var(--shadow);}
+.qa summary{
+  cursor:pointer;padding:19px 24px;font-weight:600;color:var(--ink);font-size:16px;
+  list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.qa summary::-webkit-details-marker{display:none;}
+.qa summary::after{
+  content:"";flex:none;width:11px;height:11px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+  transform:rotate(45deg);transition:transform .25s;margin-top:-4px;
+}
+.qa[open] summary::after{transform:rotate(-135deg);margin-top:4px;border-color:var(--brand);}
+.qa__body{padding:0 24px 22px;font-size:15px;}
+.qa__body p+p{margin-top:10px;}
+.qa__body code{font-family:var(--mono);font-size:13px;background:#F1F5F9;padding:2px 6px;border-radius:5px;color:var(--brand-700);}
+
+/* ===================== CTA ===================== */
+.cta{
+  background:linear-gradient(135deg,#0A1020 0%,#122A54 55%,#1A3E7A 100%);
+  border-radius:var(--radius-lg);padding:56px;position:relative;overflow:hidden;
+}
+.cta::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(52% 70% at 88% 18%,rgba(31,147,255,.4) 0%,transparent 65%),
+             radial-gradient(44% 60% at 8% 92%,rgba(124,92,255,.34) 0%,transparent 66%);
+}
+.cta__inner{position:relative;display:grid;grid-template-columns:1.25fr .75fr;gap:44px;align-items:center;}
+.cta h2{color:#fff;font-size:clamp(25px,2.7vw,34px);letter-spacing:-.03em;}
+.cta p{color:#B9C4D6;margin-top:14px;font-size:16.5px;}
+.cta__btns{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap;}
+.contact-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);padding:24px;backdrop-filter:blur(8px);}
+.contact-box h4{color:#fff;font-size:16px;margin-bottom:16px;}
+.contact-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1);}
+.contact-row:last-child{border-bottom:0;padding-bottom:0;}
+.contact-row svg{width:18px;height:18px;color:#5CB0FF;flex:none;}
+.contact-row .k{font-size:12.5px;color:#8DA0BC;display:block;}
+.contact-row .v{font-size:14.5px;color:#fff;font-weight:600;word-break:break-all;}
+
+/* ===================== Footer ===================== */
+.footer{background:#060A14;color:#8194AE;padding:64px 0 32px;font-size:14.5px;}
+.footer__grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.08);}
+.footer .brand{color:#fff;}
+.footer__desc{margin-top:16px;font-size:14px;color:#8194AE;max-width:330px;line-height:1.75;}
+.footer h5{color:#fff;font-size:14px;margin:0 0 16px;letter-spacing:.02em;}
+.footer ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px;}
+.footer ul a{color:#8194AE;font-size:14px;transition:color .18s;}
+.footer ul a:hover{color:#fff;}
+.footer__bottom{padding-top:26px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13px;color:#5B6B85;}
+.footer__bottom p{max-width:760px;line-height:1.7;}
+.footer__disc{margin-top:12px;font-size:12.5px;color:#4A586E;line-height:1.7;}
+
+/* ===================== Reveal ===================== */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1);}
+.rv.is-in{opacity:1;transform:none;}
+
+/* ===================== Responsive ===================== */
+@media (max-width:1024px){
+  .hero__grid{grid-template-columns:1fr;gap:44px;}
+  .hero__lead{max-width:none;}
+  .grid--4{grid-template-columns:repeat(2,1fr);}
+  .plans{grid-template-columns:1fr;max-width:520px;margin:0 auto;}
+  .plan--hot{order:-1;}
+  .steps{grid-template-columns:repeat(2,1fr);}
+  .step::after{display:none;}
+  .cta__inner{grid-template-columns:1fr;gap:32px;}
+  .footer__grid{grid-template-columns:1fr 1fr;gap:32px;}
+  .footer__desc{max-width:none;}
+  .cmp-wrap{overflow-x:auto;}
+  .cmp{min-width:620px;}
+}
+@media (max-width:860px){
+  .nav{display:none;}
+  .burger{display:grid;}
+  .nav.is-open{
+    display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;
+    background:#fff;border-bottom:1px solid var(--line);padding:14px 24px 22px;gap:2px;
+    box-shadow:0 24px 40px -28px rgba(15,23,42,.5);
+  }
+  .nav.is-open a{padding:12px 10px;font-size:16px;}
+  .header__right .btn--primary{display:none;}
+}
+@media (max-width:720px){
+  .section{padding:68px 0;}
+  .hero{padding:48px 0 64px;}
+  .grid--2,.grid--3,.grid--4,.channels{grid-template-columns:1fr;}
+  .channels{grid-template-columns:repeat(2,1fr);}
+  .steps{grid-template-columns:1fr;}
+  .cta{padding:36px 24px;border-radius:var(--radius);}
+  .card,.plan{padding:24px;}
+  .mock__body{grid-template-columns:0 1fr;}
+  .mock__side{display:none;}
+  .mock__float{right:8px;bottom:8px;}
+  .hero__stats{gap:24px;}
+  .footer__grid{grid-template-columns:1fr;}
+  .container{padding:0 18px;}
+  .cmp th,.cmp td{padding:13px 14px;font-size:14px;}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;}
+  .rv{opacity:1;transform:none;}
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="header" id="header">
+  <div class="container header__inner">
+    <a href="#" class="brand">
+      <span class="brand__mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5h16v11H10.5L6 20.5v-4H4z" fill="#fff"/></svg>
+      </span>
+      <span>
+        <span data-i18n="brand.name">Chatwoot 客服</span><br>
+        <span class="brand__sub" data-i18n="brand.sub">Chatwoot 部署服务</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="#features" data-i18n="nav.features">核心功能</a>
+      <a href="#channels" data-i18n="nav.channels">支持渠道</a>
+      <a href="#why" data-i18n="nav.why">为什么自托管</a>
+      <a href="#service" data-i18n="nav.service">部署服务</a>
+      <a href="#process" data-i18n="nav.process">交付流程</a>
+      <a href="#faq" data-i18n="nav.faq">常见问题</a>
+    </nav>
+
+    <div class="header__right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang-btn="zh" class="is-on">中文</button>
+        <button type="button" data-lang-btn="en">EN</button>
+      </div>
+      <a href="#contact" class="btn btn--primary btn--sm" data-i18n="nav.cta">咨询部署</a>
+      <button class="burger" id="burger" aria-label="Menu" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="container hero__grid">
+    <div>
+      <span class="pill"><b data-i18n="hero.pill.badge">开源</b><span data-i18n="hero.pill.text">GitHub 36k+ Star · MIT 协议 · 可完全自托管</span></span>
+      <h1>
+        <span data-i18n="hero.title.a">把客服系统</span><span class="grad" data-i18n="hero.title.b">装进你自己的服务器</span>
+      </h1>
+      <p class="hero__lead" data-i18n="hero.lead">
+        Chatwoot 是 Intercom、Zendesk 的开源替代品——全渠道收件箱、AI 客服助手 Captain、帮助中心，一站式搞定。
+        我们提供容器化部署服务，从环境搭建到上线交付全程代办，数据 100% 留在你自己的机器上。
+      </p>
+      <div class="hero__cta">
+        <a href="#service" class="btn btn--primary btn--lg" data-i18n="hero.cta.primary">查看部署方案</a>
+        <a href="https://github.com/chatwoot/chatwoot" target="_blank" rel="noopener noreferrer" class="btn btn--ghost btn--lg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.09.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.06 10.06 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+          <span data-i18n="hero.cta.secondary">查看源码</span>
+        </a>
+      </div>
+      <p class="hero__note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
+        <span data-i18n="hero.note">支持独立服务器 / VPS / 内网私有化部署 · 提供源站与 CDN 分离方案</span>
+      </p>
+      <div class="hero__stats">
+        <div><div class="stat__num">36k<span>+</span></div><div class="stat__label" data-i18n="hero.stat1">GitHub Star</div></div>
+        <div><div class="stat__num">9<span>+</span></div><div class="stat__label" data-i18n="hero.stat2">全渠道接入</div></div>
+        <div><div class="stat__num">MIT</div><div class="stat__label" data-i18n="hero.stat3">开源协议</div></div>
+        <div><div class="stat__num">100<span>%</span></div><div class="stat__label" data-i18n="hero.stat4">数据自主</div></div>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="mock">
+        <div class="mock__bar">
+          <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+          <span class="mock__url">chat.example.com — Chatwoot 收件箱</span>
+        </div>
+        <div class="mock__body">
+          <aside class="mock__side">
+            <span class="m-title w70"></span>
+            <div class="m-item is-on"><i></i><b></b></div>
+            <div class="m-item"><i></i><b></b></div>
+            <div class="m-item"><i></i><b></b></div>
+            <span class="m-title w45"></span>
+            <div class="m-item"><i></i><b></b></div>
+            <div class="m-item"><i></i><b></b></div>
+          </aside>
+          <div class="mock__chat">
+            <div class="bubble bubble--in" data-i18n="mock.1">你好，我的订单还没发货，能帮我查一下吗？</div>
+            <div class="bubble bubble--cap"><span class="tag">CAPTAIN</span><span data-i18n="mock.2">已为你查到订单 #88213，正在打包，预计今天 18:00 前发出。</span></div>
+            <div class="bubble bubble--out" data-i18n="mock.3">已为您加急，物流单号稍后同步给你 🙌</div>
+            <div class="chips">
+              <span class="chip chip--on">WhatsApp</span>
+              <span class="chip chip--on">Web Chat</span>
+              <span class="chip">Email</span>
+              <span class="chip">Telegram</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mock__float">
+        <span class="ok-dot"></span>
+        <span>
+          <small data-i18n="mock.float.k">容器状态</small>
+          <strong>4/4 containers healthy</strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TECH STACK BAR ===================== -->
+<section class="stackbar">
+  <div class="container stackbar__inner">
+    <span class="stackbar__label" data-i18n="stack.label">技术栈与部署形态</span>
+    <div class="stackbar__items">
+      <span class="tech"><i></i>Ruby on Rails</span>
+      <span class="tech"><i></i>Vue 3</span>
+      <span class="tech"><i></i>PostgreSQL</span>
+      <span class="tech"><i></i>Redis + Sidekiq</span>
+      <span class="tech"><i></i>Docker Compose</span>
+      <span class="tech"><i></i>Nginx / Caddy</span>
+      <span class="tech"><i></i>HTTPS / Let's Encrypt</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FEATURES ===================== -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="head rv">
+      <span class="eyebrow" data-i18n="feat.eyebrow">Core Features</span>
+      <h2 data-i18n="feat.title">一个后台，装下所有客户对话</h2>
+      <p data-i18n="feat.sub">从网站实时聊天到 WhatsApp、邮件、Telegram，所有渠道的对话汇入同一个收件箱，客服团队再也不用在十几个后台之间来回切换。</p>
+    </div>
+
+    <div class="grid grid--2" style="margin-bottom:22px">
+      <article class="card card--feature rv">
+        <div class="card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v2M12 19v2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M3 12h2M19 12h2M5.6 18.4 7 17M17 7l1.4-1.4"/><circle cx="12" cy="12" r="3.6"/></svg>
+        </div>
+        <h3 data-i18n="feat.ai.title">Captain · 内置 AI 客服</h3>
+        <p data-i18n="feat.ai.desc">Chatwoot 自带的 AI 助手，从你的帮助中心、历史对话和 FAQ 中学习，自动回答高频问题，把客服从重复问答里解放出来。</p>
+        <ul>
+          <li data-i18n="feat.ai.li1">自动应答常见问题，减少 60% 以上重复工单</li>
+          <li data-i18n="feat.ai.li2">Copilot 侧写：给客服实时推荐回复、检索历史对话</li>
+          <li data-i18n="feat.ai.li3">多语言自动翻译，一套人马服务全球客户</li>
+          <li data-i18n="feat.ai.li4">可接入 OpenAI / 自建模型，密钥握在自己手里</li>
+        </ul>
+      </article>
+
+      <article class="card card--feature rv">
+        <div class="card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5z"/><path d="m3.6 7 7.5 5.4a1.6 1.6 0 0 0 1.8 0L20.4 7"/></svg>
+        </div>
+        <h3 data-i18n="feat.inbox.title">全渠道统一收件箱</h3>
+        <p data-i18n="feat.inbox.desc">网站实时聊天、邮件、WhatsApp、Facebook、Instagram、Telegram、LINE、短信——所有对话集中到一个界面处理，客户在哪，你就在哪。</p>
+        <ul>
+          <li data-i18n="feat.inbox.li1">渠道分组、分配规则、自动路由到对应客服</li>
+          <li data-i18n="feat.inbox.li2">标签、私密备注、@提及，团队协作不打架</li>
+          <li data-i18n="feat.inbox.li3">快捷回复（Canned Responses）与命令面板</li>
+          <li data-i18n="feat.inbox.li4">营业时间、自动回复、客服容量均衡</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="grid grid--3">
+      <article class="card rv">
+        <div class="card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v13A2.5 2.5 0 0 1 17.5 21h-11A2.5 2.5 0 0 1 4 18.5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+        </div>
+        <h3 data-i18n="feat.kb.title">帮助中心</h3>
+        <p data-i18n="feat.kb.desc">内置知识库门户，写 FAQ、写教程、写产品文档，客户自助查答案，重复咨询自然下降。支持多门户、自定义域名与全文检索。</p>
+      </article>
+
+      <article class="card rv">
+        <div class="card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+        </div>
+        <h3 data-i18n="feat.report.title">报表与洞察</h3>
+        <p data-i18n="feat.report.desc">实时查看进行中的会话，按客服、渠道、标签、团队出报表；CSAT 满意度评分量化服务质量，数据可导出做离线分析。</p>
+      </article>
+
+      <article class="card rv">
+        <div class="card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3c2.6 3 2.6 15 0 18M12 3c-2.6 3-2.6 15 0 18"/></svg>
+        </div>
+        <h3 data-i18n="feat.omni.title">多语言与本地化</h3>
+        <p data-i18n="feat.omni.desc">界面支持数十种语言，配合 AI 实时翻译，客服可以用母语回复各国客户。中文界面完整可用，无需为语言能力额外付费。</p>
+      </article>
+
+      <article class="card rv">
+        <div class="card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3 data-i18n="feat.api.title">开放 API 与集成</h3>
+        <p data-i18n="feat.api.desc">完整的开发者 API 与 Webhook，可对接自家 CRM、ERP、订单系统；官方已有 Slack、Shopify、Dialogflow、Linear 等集成。</p>
+      </article>
+
+      <article class="card rv">
+        <div class="card__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v6c0 4.4-3.2 7.6-8 8.8C7.2 20.6 4 17.4 4 13V7z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3 data-i18n="feat.self.title">私有化与合规</h3>
+        <p data-i18n="feat.self.desc">代码、对话、客户资料全部存在你自己的服务器上，不出内网、不受第三方平台条款约束，满足数据合规与审计要求。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CHANNELS ===================== -->
+<section class="section section--soft" id="channels">
+  <div class="container">
+    <div class="head rv">
+      <span class="eyebrow" data-i18n="chan.eyebrow">Omnichannel</span>
+      <h2 data-i18n="chan.title">客户在哪个渠道，你就接哪个渠道</h2>
+      <p data-i18n="chan.sub">以下渠道 Chatwoot 原生支持，部署完成即可逐项接入；需要 WhatsApp Business、企业微信等特殊通道时，我们一并协助配置。</p>
+    </div>
+    <div class="channels rv">
+      <div class="chan">
+        <span class="chan__ic" style="background:linear-gradient(135deg,#1F93FF,#0B7DE8)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><path d="M4 5h16v11H9l-5 4z"/></svg>
+        </span>
+        <b data-i18n="chan.web">网站实时聊天</b><small data-i18n="chan.web.s">可改色/改文案的悬浮窗</small>
+      </div>
+      <div class="chan">
+        <span class="chan__ic" style="background:linear-gradient(135deg,#10B981,#059669)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5z"/><path d="m3.6 7 7.5 5.4a1.6 1.6 0 0 0 1.8 0L20.4 7"/></svg>
+        </span>
+        <b>Email</b><small data-i18n="chan.mail.s">收件箱式客服邮箱</small>
+      </div>
+      <div class="chan">
+        <span class="chan__ic" style="background:linear-gradient(135deg,#25D366,#128C7E)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><path d="M12 3a9 9 0 0 0-7.7 13.6L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/><path d="M8.6 8.5c0 3.4 3 6.4 6.4 6.4M8.6 8.5c.3-.7 1.5-.8 1.8 0"/></svg>
+        </span>
+        <b>WhatsApp</b><small data-i18n="chan.wa.s">Cloud API 接入</small>
+      </div>
+      <div class="chan">
+        <span class="chan__ic" style="background:linear-gradient(135deg,#0088CC,#006699)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><path d="M21 4 3.5 11l4.6 1.6L10 19l2.4-3.6L17 18z"/><path d="m8.1 12.6 12.9-8.6"/></svg>
+        </span>
+        <b>Telegram</b><small data-i18n="chan.tg.s">Bot 双向收发</small>
+      </div>
+      <div class="chan">
+        <span class="chan__ic" style="background:linear-gradient(135deg,#1877F2,#0B5FCC)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M14.5 8.5H13c-.8 0-1.4.6-1.4 1.5V21M9.5 12h4.5"/></svg>
+        </span>
+        <b>Facebook</b><small data-i18n="chan.fb.s">主页私信与评论</small>
+      </div>
+      <div class="chan">
+        <span class="chan__ic" style="background:linear-gradient(135deg,#E1306C,#C13584)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r="1" fill="#fff"/></svg>
+        </span>
+        <b>Instagram</b><small data-i18n="chan.ig.s">私信与故事回复</small>
+      </div>
+      <div class="chan">
+        <span class="chan__ic" style="background:linear-gradient(135deg,#06C755,#059C43)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><path d="M4 5.5h16v10H12l-5 4v-4H4z"/><path d="M9 9.5h6"/></svg>
+        </span>
+        <b>LINE</b><small data-i18n="chan.line.s">日韩东南亚市场</small>
+      </div>
+      <div class="chan">
+        <span class="chan__ic" style="background:linear-gradient(135deg,#64748B,#334155)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+        </span>
+        <b>SMS</b><small data-i18n="chan.sms.s">短信通道通知</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY SELF-HOST ===================== -->
+<section class="section" id="why">
+  <div class="container">
+    <div class="head rv">
+      <span class="eyebrow" data-i18n="why.eyebrow">Self-hosted</span>
+      <h2 data-i18n="why.title">同样是客服系统，为什么建议装在自己机器上</h2>
+      <p data-i18n="why.sub">SaaS 客服工具按席位、按对话量收费，数据存在别人服务器上。Chatwoot 是 MIT 协议开源项目，你可以把它完整地装进自己的基础设施。</p>
+    </div>
+
+    <div class="cmp-wrap rv">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th data-i18n="why.th1">对比项</th>
+            <th data-i18n="why.th2">SaaS 客服（Intercom / Zendesk 等）</th>
+            <th class="cmp__hl" data-i18n="why.th3">Chatwoot 自托管</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="why.r1">费用结构</td>
+            <td data-i18n="why.r1.a">按客服席位 + 按量计费，人一多成本陡增</td>
+            <td class="cmp__hl" data-i18n="why.r1.b">软件本身免费，只付服务器成本</td>
+          </tr>
+          <tr>
+            <td data-i18n="why.r2">数据归属</td>
+            <td><span class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg><span data-i18n="why.r2.a">存在服务商云端</span></span></td>
+            <td class="cmp__hl"><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="why.r2.b">100% 留在自己服务器</span></span></td>
+          </tr>
+          <tr>
+            <td data-i18n="why.r3">定制与二次开发</td>
+            <td data-i18n="why.r3.a">受限于官方功能与插件市场</td>
+            <td class="cmp__hl" data-i18n="why.r3.b">源码可改，可对接自有业务系统</td>
+          </tr>
+          <tr>
+            <td data-i18n="why.r4">接口与限流</td>
+            <td data-i18n="why.r4.a">API 调用有配额，超额另收费</td>
+            <td class="cmp__hl" data-i18n="why.r4.b">无第三方配额，性能取决于自己的机器</td>
+          </tr>
+          <tr>
+            <td data-i18n="why.r5">合规与审计</td>
+            <td data-i18n="why.r5.a">受海外平台条款与跨境数据约束</td>
+            <td class="cmp__hl" data-i18n="why.r5.b">可部署在内网 / 境内机房，满足合规要求</td>
+          </tr>
+          <tr>
+            <td data-i18n="why.r6">运维门槛</td>
+            <td><span class="yes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="why.r6.a">开箱即用，零运维</span></span></td>
+            <td class="cmp__hl" data-i18n="why.r6.b">需要部署与维护 —— 交给我们就行</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICE / PLANS ===================== -->
+<section class="section section--soft" id="service">
+  <div class="container">
+    <div class="head rv">
+      <span class="eyebrow" data-i18n="svc.eyebrow">Deployment Service</span>
+      <h2 data-i18n="svc.title">容器化部署服务 · 交付即可用</h2>
+      <p data-i18n="svc.sub">我们已把 Chatwoot 的安装流程标准化为 Docker 容器编排方案：一次部署，包含数据库、缓存、后台任务、反向代理与 HTTPS 证书，开机自启、异常自愈。</p>
+    </div>
+
+    <div class="plans rv">
+      <article class="plan">
+        <h3 data-i18n="plan.a.name">标准部署</h3>
+        <p class="plan__desc" data-i18n="plan.a.desc">适合单机 VPS / 云服务器，个人或小团队起步使用。</p>
+        <div class="plan__price"><span class="amt" data-i18n="plan.a.price">按需报价</span><span class="unit" data-i18n="plan.a.unit">/ 一次性</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.a.li1">Chatwoot 主程序 + PostgreSQL + Redis + Sidekiq 全套容器</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.a.li2">域名绑定 + 免费 HTTPS 证书自动续期</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.a.li3">网站聊天窗口接入代码与安装指导</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.a.li4">邮件 / 初始账号 / 基础参数配置</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.a.li5">交付文档 + 30 天线上答疑</span></li>
+        </ul>
+        <a href="#contact" class="btn btn--ghost" data-i18n="plan.cta">咨询这个方案</a>
+      </article>
+
+      <article class="plan plan--hot">
+        <span class="plan__tag" data-i18n="plan.hot">多数客户选择</span>
+        <h3 data-i18n="plan.b.name">生产级部署</h3>
+        <p class="plan__desc" data-i18n="plan.b.desc">面向正式对外运营，含备份、监控与邮件送达优化。</p>
+        <div class="plan__price"><span class="amt" data-i18n="plan.b.price">按需报价</span><span class="unit" data-i18n="plan.b.unit">/ 一次性 + 可选年维护</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.b.li1">包含标准部署全部内容</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.b.li2">数据库定时备份 + 异地留存 + 恢复演练</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.b.li3">容器与站点健康监控，异常 Telegram / 邮件告警</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.b.li4">邮件通道（SPF / DKIM / DMARC）配置，提升送达率</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.b.li5">WhatsApp / Telegram 等渠道接入协助</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.b.li6">版本升级支持与运维交接培训</span></li>
+        </ul>
+        <a href="#contact" class="btn btn--primary" data-i18n="plan.cta">咨询这个方案</a>
+      </article>
+
+      <article class="plan">
+        <h3 data-i18n="plan.c.name">企业定制</h3>
+        <p class="plan__desc" data-i18n="plan.c.desc">多节点、内网私有化、深度对接自有业务系统。</p>
+        <div class="plan__price"><span class="amt" data-i18n="plan.c.price">面议</span><span class="unit" data-i18n="plan.c.unit">/ 按项目评估</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.c.li1">负载均衡 + 多节点横向扩展架构</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.c.li2">内网 / 专有云私有化部署，不出境</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.c.li3">对接自有 CRM / ERP / 订单系统（API + Webhook）</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.c.li4">界面定制、品牌化改造、功能二次开发</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="plan.c.li5">长期运维托管与技术支持</span></li>
+        </ul>
+        <a href="#contact" class="btn btn--ghost" data-i18n="plan.cta">咨询这个方案</a>
+      </article>
+    </div>
+
+    <p class="rv" style="text-align:center;margin-top:32px;font-size:14px;color:var(--muted)" data-i18n="plan.note">
+      注：服务器由你自行购买或已有（1 核 2G 起可跑，建议 2 核 4G 以上），我们不代收服务器费用；具体报价取决于服务器环境与接入渠道。
+    </p>
+  </div>
+</section>
+
+<!-- ===================== PROCESS ===================== -->
+<section class="section section--ink" id="process">
+  <div class="container">
+    <div class="head rv">
+      <span class="eyebrow" data-i18n="proc.eyebrow">How it works</span>
+      <h2 data-i18n="proc.title">四步交付，全程有人跟</h2>
+      <p data-i18n="proc.sub">从沟通到上线，通常 1 个工作日内完成；你只需要提供一个服务器和域名。</p>
+    </div>
+    <div class="steps rv">
+      <div class="step">
+        <span class="step__n">1</span>
+        <h4 data-i18n="proc.s1.t">沟通需求</h4>
+        <p data-i18n="proc.s1.d">确认使用场景、需要接入的渠道、并发量级与服务器配置，给出部署方案与报价。</p>
+      </div>
+      <div class="step">
+        <span class="step__n">2</span>
+        <h4 data-i18n="proc.s2.t">环境准备</h4>
+        <p data-i18n="proc.s2.d">安装 Docker 运行环境，规划端口与域名解析，配置系统安全基线，避免裸奔上线。</p>
+      </div>
+      <div class="step">
+        <span class="step__n">3</span>
+        <h4 data-i18n="proc.s3.t">容器部署</h4>
+        <p data-i18n="proc.s3.d">拉起全套容器，初始化数据库与管理员账号，配置 HTTPS、邮件与后台任务。</p>
+      </div>
+      <div class="step">
+        <span class="step__n">4</span>
+        <h4 data-i18n="proc.s4.t">交付培训</h4>
+        <p data-i18n="proc.s4.d">交付账号、文档与备份策略，培训客服后台使用，讲解日常维护与升级方式。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="head rv">
+      <span class="eyebrow" data-i18n="faq.eyebrow">FAQ</span>
+      <h2 data-i18n="faq.title">部署前，你可能想问</h2>
+    </div>
+    <div class="faq rv">
+      <details class="qa" open>
+        <summary data-i18n="faq.q1">部署 Chatwoot 需要什么配置的服务器？</summary>
+        <div class="qa__body">
+          <p data-i18n="faq.a1">官方最低要求约 1 核 2G 内存、20G 磁盘即可跑起来，但实际建议 <strong>2 核 4G 内存 + 40G 以上 SSD</strong>。Chatwoot 由多个进程组成（Rails 应用、Sidekiq 后台任务、PostgreSQL、Redis），内存偏小时容易出现后台任务堆积。并发客服人数较多时，建议 4 核 8G 起。</p>
+        </div>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq.q2">系统是装在谁的服务器上？数据归谁？</summary>
+        <div class="qa__body">
+          <p data-i18n="faq.a2">装在<strong>你自己的服务器</strong>上，全部数据（对话记录、客户资料、附件）都存于你的磁盘与数据库中，我们不接触、不持有、不中转你的业务数据。你随时可以自己登录服务器查看、导出、迁移。</p>
+        </div>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq.q3">大概多久能上线？</summary>
+        <div class="qa__body">
+          <p data-i18n="faq.a3">服务器与域名就绪的前提下，标准部署一般 <strong>1 个工作日内</strong>完成并交付；需要接入 WhatsApp、配置邮件通道或对接内部系统的，视第三方审核时间而定，通常 1-3 个工作日。</p>
+        </div>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq.q4">后期升级、维护怎么办？</summary>
+        <div class="qa__body">
+          <p data-i18n="faq.a4">Chatwoot 迭代较快，建议跟随稳定版升级。我们提供两种情况：一是你自己按交付文档操作（我们会写好升级与回滚步骤）；二是把运维托管给我们，包含升级、备份巡检、故障排查与告警处理。</p>
+        </div>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq.q5">能不能对接微信 / 企业微信 / 钉钉？</summary>
+        <div class="qa__body">
+          <p data-i18n="faq.a5">Chatwoot 原生支持的是网站聊天、邮件、WhatsApp、Facebook、Instagram、Telegram、LINE、SMS 等渠道。微信生态需要通过开放 API 或第三方中转做定制对接，属于二次开发范围，我们可以评估后提供方案。</p>
+        </div>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq.q6">部署完我不会运维，会有人教我 / 帮我吗？</summary>
+        <div class="qa__body">
+          <p data-i18n="faq.a6">会。交付时我们会宣讲后台日常操作（客服分配、快捷回复、报表查看），并提供文档。标准方案含 30 天答疑；生产级与企业方案含更长周期的技术支持与运维托管选项。</p>
+        </div>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq.q7">会不会有版权或合规风险？</summary>
+        <div class="qa__body">
+          <p data-i18n="faq.a7">Chatwoot 本体以 <strong>MIT 协议</strong>开源发布，可免费商用、可修改、可自托管，这是它被广泛采用的基础。本站是独立的第三方部署服务，与 Chatwoot Inc. 无官方隶属关系；涉及的第三方渠道（WhatsApp 等）需遵守其各自平台政策。</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA / CONTACT ===================== -->
+<section class="section" id="contact" style="padding-top:0">
+  <div class="container">
+    <div class="cta rv">
+      <div class="cta__inner">
+        <div>
+          <h2 data-i18n="cta.title">聊聊你的客服系统该怎么装</h2>
+          <p data-i18n="cta.sub">把你的使用场景（客服人数、需要的渠道、服务器情况）发给我们，我们给出部署方案与明确报价。方案不合适也没关系，先聊聊不收钱。</p>
+          <div class="cta__btns">
+            <a href="mailto:marxkali32502@gmail.com" class="btn btn--onink btn--lg">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5z"/><path d="m3.6 7 7.5 5.4a1.6 1.6 0 0 0 1.8 0L20.4 7"/></svg>
+              <span data-i18n="cta.mail">邮件咨询</span>
+            </a>
+            <a href="https://t.me/chatwoot_kefu" target="_blank" rel="noopener noreferrer" class="btn btn--onink-line btn--lg">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4 3.5 11l4.6 1.6L10 19l2.4-3.6L17 18z"/><path d="m8.1 12.6 12.9-8.6"/></svg>
+              <span data-i18n="cta.tg">Telegram 咨询</span>
+            </a>
+          </div>
+        </div>
+        <div class="contact-box">
+          <h4 data-i18n="cta.box.title">联系方式</h4>
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5z"/><path d="m3.6 7 7.5 5.4a1.6 1.6 0 0 0 1.8 0L20.4 7"/></svg>
+            <span><span class="k" data-i18n="cta.k.mail">邮箱</span><span class="v">marxkali32502@gmail.com</span></span>
+          </div>
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M21 4 3.5 11l4.6 1.6L10 19l2.4-3.6L17 18z"/><path d="m8.1 12.6 12.9-8.6"/></svg>
+            <span><span class="k" data-i18n="cta.k.tg">Telegram</span><span class="v">@chatwoot_kefu</span></span>
+          </div>
+          <div class="contact-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>
+            <span><span class="k" data-i18n="cta.k.tz">响应时间</span><span class="v" data-i18n="cta.v.tz">一般 2 小时内回复</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a href="#" class="brand">
+          <span class="brand__mark">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5h16v11H10.5L6 20.5v-4H4z" fill="#fff"/></svg>
+          </span>
+          <span data-i18n="brand.name">Chatwoot 客服</span>
+        </a>
+        <p class="footer__desc" data-i18n="footer.desc">专注于开源客服系统的容器化部署与运维，帮企业和团队把 Chatwoot 装进自己的服务器，数据自主、成本可控。</p>
+      </div>
+      <div>
+        <h5 data-i18n="footer.h1">了解产品</h5>
+        <ul>
+          <li><a href="#features" data-i18n="nav.features">核心功能</a></li>
+          <li><a href="#channels" data-i18n="nav.channels">支持渠道</a></li>
+          <li><a href="#why" data-i18n="nav.why">为什么自托管</a></li>
+          <li><a href="https://www.chatwoot.com/" target="_blank" rel="noopener noreferrer" data-i18n="footer.official">Chatwoot 官网</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 data-i18n="footer.h2">服务与支持</h5>
+        <ul>
+          <li><a href="#service" data-i18n="nav.service">部署服务</a></li>
+          <li><a href="#process" data-i18n="nav.process">交付流程</a></li>
+          <li><a href="#faq" data-i18n="nav.faq">常见问题</a></li>
+          <li><a href="#contact" data-i18n="nav.cta">咨询部署</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 data-i18n="footer.h3">开源资源</h5>
+        <ul>
+          <li><a href="https://github.com/chatwoot/chatwoot" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://www.chatwoot.com/help-center" target="_blank" rel="noopener noreferrer" data-i18n="footer.docs">官方文档</a></li>
+          <li><a href="https://www.chatwoot.com/deploy" target="_blank" rel="noopener noreferrer" data-i18n="footer.deploy">部署文档</a></li>
+          <li><a href="https://hub.docker.com/r/chatwoot/chatwoot" target="_blank" rel="noopener noreferrer" data-i18n="footer.docker">Docker 镜像</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© <span id="year">2026</span> <span data-i18n="brand.name">Chatwoot 客服</span> · <span data-i18n="footer.rights">保留所有权利</span></p>
+      <p data-i18n="footer.build">本站基于开源项目 Chatwoot 提供第三方部署服务</p>
+    </div>
+    <p class="footer__disc" data-i18n="footer.disclaimer">
+      声明：Chatwoot 为 Chatwoot Inc. 发布的 MIT 协议开源软件，本站为独立的第三方技术服务平台，与 Chatwoot Inc. 无隶属或代理关系；页面中的产品名称与描述仅用于介绍该开源项目。
+    </p>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   i18n — 中英双语
+   ===================================================================== */
+(function () {
+  var I18N = {
+    en: {
+      "brand.name": "Chatwoot Desk",
+      "brand.sub": "Chatwoot Deployment",
+      "nav.features": "Features",
+      "nav.channels": "Channels",
+      "nav.why": "Why Self-host",
+      "nav.service": "Pricing",
+      "nav.process": "Process",
+      "nav.faq": "FAQ",
+      "nav.cta": "Get a Quote",
+      "hero.pill.badge": "Open Source",
+      "hero.pill.text": "36k+ GitHub stars · MIT licensed · fully self-hostable",
+      "hero.title.a": "Host your support desk on ",
+      "hero.title.b": "your own server",
+      "hero.lead": "Chatwoot is the open-source alternative to Intercom and Zendesk — omnichannel inbox, Captain AI assistant and a help center in one place. We deploy it for you with Docker containers, so your customer data never leaves your own infrastructure.",
+      "hero.cta.primary": "See deployment plans",
+      "hero.cta.secondary": "View on GitHub",
+      "hero.note": "Runs on dedicated servers, VPS or private networks · origin + CDN setup available",
+      "hero.stat1": "GitHub stars",
+      "hero.stat2": "channels supported",
+      "hero.stat3": "license",
+      "hero.stat4": "data ownership",
+      "mock.1": "Hi, my order hasn't shipped yet — could you check it for me?",
+      "mock.2": "Order #88213 is packed and will ship before 6:00 PM today.",
+      "mock.3": "I've expedited it for you — tracking number coming shortly 🙌",
+      "mock.float.k": "Containers",
+      "stack.label": "Stack & deployment",
+      "feat.eyebrow": "Core Features",
+      "feat.title": "One dashboard for every customer conversation",
+      "feat.sub": "From website live chat to WhatsApp, email and Telegram — every channel lands in a single inbox. No more juggling a dozen back-office tabs.",
+      "feat.ai.title": "Captain · built-in AI support agent",
+      "feat.ai.desc": "Chatwoot's own AI agent learns from your help center, past conversations and FAQs to answer common questions automatically, freeing your team from repetitive tickets.",
+      "feat.ai.li1": "Auto-answer FAQs and cut repetitive tickets by 60%+",
+      "feat.ai.li2": "Copilot suggests replies and retrieves past conversations",
+      "feat.ai.li3": "Automatic translation — serve global customers in one language",
+      "feat.ai.li4": "Plug in OpenAI or your own model — keys stay with you",
+      "feat.inbox.title": "Omnichannel unified inbox",
+      "feat.inbox.desc": "Website live chat, email, WhatsApp, Facebook, Instagram, Telegram, LINE and SMS — all handled from one interface. Be where your customers are.",
+      "feat.inbox.li1": "Channel grouping, routing rules and auto-assignment",
+      "feat.inbox.li2": "Labels, private notes and @mentions for smooth teamwork",
+      "feat.inbox.li3": "Canned responses and a command bar for speed",
+      "feat.inbox.li4": "Business hours, auto-responders and agent capacity",
+      "feat.kb.title": "Help center portal",
+      "feat.kb.desc": "A built-in knowledge base for FAQs, guides and product docs. Let customers self-serve and watch repetitive enquiries drop. Multi-portal, custom domain, full-text search.",
+      "feat.report.title": "Reports & insights",
+      "feat.report.desc": "Live view of ongoing conversations plus reports by agent, inbox, label and team. CSAT scoring quantifies quality, and all data exports for offline analysis.",
+      "feat.omni.title": "Multilingual & localized",
+      "feat.omni.desc": "Dozens of interface languages with AI real-time translation, so your team replies in their own language. The Chinese interface is fully available at no extra cost.",
+      "feat.api.title": "Open API & integrations",
+      "feat.api.desc": "Full developer API and webhooks to connect your own CRM, ERP or order system. Official integrations include Slack, Shopify, Dialogflow and Linear.",
+      "feat.self.title": "Private & compliant",
+      "feat.self.desc": "Code, conversations and customer records all live on your own server — no third-party terms, no cross-border data risk, ready for audits.",
+      "chan.eyebrow": "Omnichannel",
+      "chan.title": "Whatever channel your customers use, you're on it",
+      "chan.sub": "These channels are natively supported by Chatwoot — connect them one by one after deployment. Need WhatsApp Business or other special channels? We help configure those too.",
+      "chan.web": "Website live chat",
+      "chan.web.s": "Custom widget color & copy",
+      "chan.mail.s": "Email as a help desk inbox",
+      "chan.wa.s": "Cloud API integration",
+      "chan.tg.s": "Two-way bot messaging",
+      "chan.fb.s": "Page messages & comments",
+      "chan.ig.s": "DMs & story replies",
+      "chan.line.s": "Japan / SEA markets",
+      "chan.sms.s": "SMS notifications",
+      "why.eyebrow": "Self-hosted",
+      "why.title": "Same product — so why host it yourself?",
+      "why.sub": "SaaS support tools charge per seat and per conversation, and keep your data on their servers. Chatwoot is MIT-licensed open source: you can own the whole stack.",
+      "why.th1": "Comparison",
+      "why.th2": "SaaS support (Intercom / Zendesk etc.)",
+      "why.th3": "Self-hosted Chatwoot",
+      "why.r1": "Pricing model",
+      "why.r1.a": "Per seat plus usage-based fees — costs spike as the team grows",
+      "why.r1.b": "The software itself is free — you only pay for the server",
+      "why.r2": "Data ownership",
+      "why.r2.a": "Stored on the vendor's cloud",
+      "why.r2.b": "100% stays on your own server",
+      "why.r3": "Customization",
+      "why.r3.a": "Limited to official features and plugin marketplace",
+      "why.r3.b": "Source code is editable — integrate your own systems",
+      "why.r4": "API & rate limits",
+      "why.r4.a": "API quotas, with overage charges",
+      "why.r4.b": "No third-party quotas — limits are your own hardware",
+      "why.r5": "Compliance & audit",
+      "why.r5.a": "Bound by overseas terms and cross-border data rules",
+      "why.r5.b": "Deploy in your own network or region to meet compliance",
+      "why.r6": "Maintenance effort",
+      "why.r6.a": "Zero ops, works out of the box",
+      "why.r6.b": "Needs deployment and care — that part is on us",
+      "svc.eyebrow": "Deployment Service",
+      "svc.title": "Containerized deployment — ready on delivery",
+      "svc.sub": "We've standardized the Chatwoot install into a Docker stack: app, database, cache, background jobs, reverse proxy and HTTPS certificates in one shot — auto-start on boot, self-healing on failure.",
+      "plan.a.name": "Standard",
+      "plan.a.desc": "For a single VPS or cloud server — individuals and small teams getting started.",
+      "plan.a.price": "Quote on request",
+      "plan.a.unit": "/ one-off",
+      "plan.a.li1": "Chatwoot app + PostgreSQL + Redis + Sidekiq containers",
+      "plan.a.li2": "Domain binding with auto-renewing free HTTPS",
+      "plan.a.li3": "Website chat widget embed code and setup guidance",
+      "plan.a.li4": "Email, admin account and baseline configuration",
+      "plan.a.li5": "Handover docs plus 30 days of Q&A",
+      "plan.b.name": "Production",
+      "plan.b.desc": "For running customer support in production — with backup, monitoring and email deliverability.",
+      "plan.b.price": "Quote on request",
+      "plan.b.unit": "/ one-off + optional yearly care",
+      "plan.b.li1": "Everything in the Standard plan",
+      "plan.b.li2": "Scheduled database backups, off-site retention and restore drills",
+      "plan.b.li3": "Container and site health monitoring with Telegram / email alerts",
+      "plan.b.li4": "Email channel setup (SPF / DKIM / DMARC) for better deliverability",
+      "plan.b.li5": "Assistance connecting WhatsApp, Telegram and more",
+      "plan.b.li6": "Upgrade support and ops handover training",
+      "plan.c.name": "Enterprise",
+      "plan.c.desc": "Multi-node, private network deployment and deep integration with your systems.",
+      "plan.c.price": "Custom",
+      "plan.c.unit": "/ project-based",
+      "plan.c.li1": "Load balancing and multi-node horizontal scaling",
+      "plan.c.li2": "Private / dedicated cloud deployment, data stays in-country",
+      "plan.c.li3": "Integration with your CRM / ERP / order system via API and webhooks",
+      "plan.c.li4": "UI customization, branding and custom feature development",
+      "plan.c.li5": "Long-term managed operations and technical support",
+      "plan.cta": "Ask about this plan",
+      "plan.hot": "Most popular",
+      "plan.note": "Note: the server is yours to purchase or already in place (1 vCPU / 2 GB is the floor; 2 vCPU / 4 GB+ recommended). We don't resell server costs. Final pricing depends on your environment and the channels you need.",
+      "proc.eyebrow": "How it works",
+      "proc.title": "Four steps, with someone on it the whole way",
+      "proc.sub": "Usually live within one business day. All you need to provide is a server and a domain.",
+      "proc.s1.t": "Scoping",
+      "proc.s1.d": "We confirm your use case, channels, expected volume and server spec, then propose a plan and quote.",
+      "proc.s2.t": "Environment prep",
+      "proc.s2.d": "Install Docker, plan ports and DNS, apply a baseline security hardening so nothing goes live exposed.",
+      "proc.s3.t": "Container deployment",
+      "proc.s3.d": "Bring up the full container stack, initialize the database and admin account, configure HTTPS, mail and background jobs.",
+      "proc.s4.t": "Handover & training",
+      "proc.s4.d": "Deliver accounts, documentation and backup strategy; train your team on the agent dashboard and daily maintenance.",
+      "faq.eyebrow": "FAQ",
+      "faq.title": "Things you might be wondering",
+      "faq.q1": "What server spec does Chatwoot need?",
+      "faq.a1": "The official floor is about 1 vCPU / 2 GB RAM and 20 GB disk, but in practice we recommend <strong>2 vCPU / 4 GB RAM with 40 GB+ SSD</strong>. Chatwoot runs several processes (Rails app, Sidekiq workers, PostgreSQL, Redis), so a small box tends to build up background job backlog. For a larger agent team, start from 4 vCPU / 8 GB.",
+      "faq.q2": "Whose server is it installed on, and who owns the data?",
+      "faq.a2": "It runs on <strong>your own server</strong>. Every conversation, contact record and attachment lives on your disk and in your database — we never hold, access or relay your business data. You can log in, export or migrate any time.",
+      "faq.q3": "How long until it's live?",
+      "faq.a3": "With the server and domain ready, a standard deployment is usually <strong>completed within one business day</strong>. If WhatsApp, email deliverability or internal system integration is involved, allow 1-3 business days depending on third-party review.",
+      "faq.q4": "What about upgrades and maintenance later?",
+      "faq.a4": "Chatwoot iterates quickly, so we recommend tracking stable releases. Two options: you follow our handover documentation (we write clear upgrade and rollback steps), or you outsource operations to us — upgrades, backup checks, incident response and alert handling.",
+      "faq.q5": "Can it connect to WeChat / WeCom / DingTalk?",
+      "faq.a5": "Chatwoot natively supports website chat, email, WhatsApp, Facebook, Instagram, Telegram, LINE, SMS and more. The WeChat ecosystem requires custom work through open APIs or a gateway — that falls under custom development, and we can assess and quote it.",
+      "faq.q6": "I'm not technical. Will someone train or help me?",
+      "faq.a6": "Yes. At handover we walk you through the dashboard (agent assignment, canned responses, reports) and leave documentation behind. The Standard plan includes 30 days of Q&A; Production and Enterprise include longer support and managed operations options.",
+      "faq.q7": "Are there licensing or compliance risks?",
+      "faq.a7": "Chatwoot itself is released under the <strong>MIT license</strong> — free for commercial use, modifiable and self-hostable, which is why it's so widely adopted. This site is an independent third-party deployment service with no official affiliation to Chatwoot Inc. Third-party channels such as WhatsApp remain subject to their own platform policies.",
+      "cta.title": "Let's talk about how to set up your support desk",
+      "cta.sub": "Tell us your scenario — team size, channels needed, server situation — and we'll come back with a deployment plan and a clear quote. No obligation, and the first conversation is free.",
+      "cta.mail": "Email us",
+      "cta.tg": "Telegram",
+      "cta.box.title": "Get in touch",
+      "cta.k.mail": "Email",
+      "cta.k.tg": "Telegram",
+      "cta.k.tz": "Response time",
+      "cta.v.tz": "Usually within 2 hours",
+      "footer.desc": "We focus on containerized deployment and operations for open-source support systems, helping teams run Chatwoot on their own servers with full data ownership and predictable cost.",
+      "footer.h1": "Product",
+      "footer.h2": "Services",
+      "footer.h3": "Open source",
+      "footer.official": "Chatwoot official site",
+      "footer.docs": "Documentation",
+      "footer.deploy": "Deployment guide",
+      "footer.docker": "Docker image",
+      "footer.rights": "All rights reserved",
+      "footer.build": "Independent deployment service built on the open-source project Chatwoot",
+      "footer.disclaimer": "Disclaimer: Chatwoot is MIT-licensed open-source software released by Chatwoot Inc. This site is an independent third-party technical service platform with no affiliation with or agency for Chatwoot Inc. Product names and descriptions are used solely to describe the open-source project."
+    }
+  };
+
+  var ZH = {};                       // 原始中文快照
+  var nodes = document.querySelectorAll('[data-i18n]');
+  nodes.forEach(function (el) {
+    ZH[el.getAttribute('data-i18n')] = el.innerHTML;
+  });
+
+  var META = {
+    zh: {
+      title: 'Chatwoot 中文站 — 开源自托管客服系统 · 容器化一键部署',
+      desc: 'Chatwoot 是 Intercom / Zendesk 的开源替代品，集全渠道收件箱、AI 客服 Captain、帮助中心于一体（GitHub 36k+ Star，MIT 协议）。我们提供 Docker 容器化部署服务，把系统装到你自己服务器上，数据完全自主可控。'
+    },
+    en: {
+      title: 'Chatwoot Deployment — Self-hosted open-source customer support, done for you',
+      desc: 'Chatwoot is the open-source alternative to Intercom and Zendesk: omnichannel inbox, Captain AI agent and help center (36k+ GitHub stars, MIT). We deploy it for you with Docker containers on your own server, so your data stays yours.'
+    }
+  };
+
+  function apply(lang) {
+    var dict = I18N[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n');
+      if (lang === 'zh') { if (ZH[k] != null) el.innerHTML = ZH[k]; }
+      else if (dict[k] != null) { el.innerHTML = dict[k]; }
+    });
+    document.documentElement.setAttribute('lang', lang === 'en' ? 'en' : 'zh-CN');
+    document.documentElement.setAttribute('data-lang', lang);
+    document.title = META[lang].title;
+    var md = document.querySelector('meta[name="description"]');
+    if (md) md.setAttribute('content', META[lang].desc);
+    document.querySelectorAll('[data-lang-btn]').forEach(function (b) {
+      b.classList.toggle('is-on', b.getAttribute('data-lang-btn') === lang);
+    });
+    try { localStorage.setItem('cw-lang', lang); } catch (e) {}
+  }
+
+  document.querySelectorAll('[data-lang-btn]').forEach(function (b) {
+    b.addEventListener('click', function () { apply(b.getAttribute('data-lang-btn')); });
+  });
+
+  // 初始语言：优先本地记忆，其次浏览器语言
+  var saved = null;
+  try { saved = localStorage.getItem('cw-lang'); } catch (e) {}
+  var nav = (navigator.language || 'zh').toLowerCase();
+  apply(saved || (nav.indexOf('zh') === 0 ? 'zh' : (nav.indexOf('en') === 0 ? 'en' : 'zh')));
+})();
+
+/* =====================================================================
+   Interactions
+   ===================================================================== */
+(function () {
+  // 页头阴影
+  var header = document.getElementById('header');
+  var onScroll = function () { header.classList.toggle('is-stuck', window.scrollY > 8); };
+  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+
+  // 移动端菜单
+  var burger = document.getElementById('burger');
+  var nav = document.getElementById('nav');
+  burger.addEventListener('click', function () { nav.classList.toggle('is-open'); });
+  nav.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') nav.classList.remove('is-open');
+  });
+
+  // 滚动入场
+  var items = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+    items.forEach(function (el, i) {
+      el.style.transitionDelay = Math.min(i % 4, 3) * 70 + 'ms';
+      io.observe(el);
+    });
+  } else {
+    items.forEach(function (el) { el.classList.add('is-in'); });
+  }
+
+  // FAQ：手风琴（同时只展开一个）
+  var qas = document.querySelectorAll('.qa');
+  qas.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) qas.forEach(function (o) { if (o !== d) o.open = false; });
+    });
+  });
+
+  // 年份
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
