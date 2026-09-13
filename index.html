@@ -115,7 +115,7 @@ img{max-width:100%;display:block;}
 .burger svg{width:18px;height:18px;}
 
 /* ===================== Hero ===================== */
-.hero{position:relative;padding:76px 0 88px;overflow:hidden;}
+.hero{position:relative;padding:60px 0 64px;overflow:hidden;}
 .hero::before{
   content:"";position:absolute;inset:-30% -10% auto -10%;height:760px;z-index:-1;
   background:
@@ -123,67 +123,142 @@ img{max-width:100%;display:block;}
     radial-gradient(40% 46% at 84% 4%,rgba(124,92,255,.15) 0%,transparent 64%),
     radial-gradient(38% 40% at 62% 46%,rgba(16,185,129,.07) 0%,transparent 70%);
 }
-.hero__grid{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center;}
+.hero__intro{max-width:840px;margin:0 auto;text-align:center;}
 .pill{
   display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;color:var(--brand-700);
   background:rgba(31,147,255,.09);border:1px solid rgba(31,147,255,.2);
   padding:6px 13px 6px 8px;border-radius:999px;margin-bottom:22px;
 }
 .pill b{background:var(--brand);color:#fff;font-size:11px;padding:2px 8px;border-radius:999px;letter-spacing:.02em;}
-.hero h1{font-size:clamp(34px,4.2vw,54px);letter-spacing:-.035em;font-weight:800;}
+.hero h1{font-size:clamp(27px,5vw,52px);letter-spacing:-.035em;font-weight:800;}
 .hero h1 .grad{
   background:linear-gradient(100deg,var(--brand) 0%,var(--violet) 88%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.hero__lead{font-size:18px;margin-top:22px;max-width:560px;line-height:1.75;}
-.hero__cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap;}
-.hero__note{margin-top:18px;font-size:13.5px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.hero__lead{font-size:17.5px;margin:20px auto 0;max-width:680px;line-height:1.75;}
+.hero__cta{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap;justify-content:center;}
+.hero__note{margin-top:16px;font-size:13.5px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;}
 .hero__note svg{width:15px;height:15px;color:var(--ok);flex:none;}
-.hero__stats{display:flex;gap:34px;margin-top:40px;padding-top:28px;border-top:1px solid var(--line);flex-wrap:wrap;}
+.hero__stats{display:flex;gap:38px;margin-top:48px;flex-wrap:wrap;justify-content:center;}
 .stat__num{font-size:26px;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1.2;}
 .stat__num span{color:var(--brand);}
 .stat__label{font-size:13px;color:var(--muted);}
 
-/* ===================== Mock UI ===================== */
-.mock{
-  border-radius:var(--radius-lg);background:#fff;border:1px solid var(--line);
-  box-shadow:var(--shadow-lg);overflow:hidden;position:relative;
+/* ===================== Product showcase ===================== */
+.showcase{margin-top:48px;}
+.browser{
+  border-radius:18px;background:#fff;border:1px solid var(--line);overflow:hidden;
+  box-shadow:0 50px 90px -50px rgba(15,23,42,.55),0 14px 34px -24px rgba(15,23,42,.25);
 }
-.mock__bar{display:flex;align-items:center;gap:7px;padding:12px 15px;background:#FBFCFE;border-bottom:1px solid var(--line);}
-.dot{width:10px;height:10px;border-radius:50%;}
-.dot--r{background:#FF6058;}.dot--y{background:#FFBD2E;}.dot--g{background:#28C840;}
-.mock__url{
-  margin-left:10px;font-size:11.5px;font-family:var(--mono);color:var(--muted);
-  background:#F1F5F9;border-radius:6px;padding:3px 10px;flex:1;overflow:hidden;white-space:nowrap;
+.browser__bar{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#F7F9FC;border-bottom:1px solid var(--line);}
+.dots{display:flex;gap:7px;flex:none;}
+.dot{width:11px;height:11px;border-radius:50%;}
+.dot--r{background:#FF5F57;}.dot--y{background:#FEBC2E;}.dot--g{background:#28C840;}
+.browser__url{
+  flex:1;max-width:440px;margin:0 auto;text-align:center;font-size:11.5px;font-family:var(--mono);
+  color:var(--muted);background:#fff;border:1px solid var(--line);border-radius:7px;
+  padding:4px 12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
-.mock__body{display:grid;grid-template-columns:132px 1fr;}
-.mock__side{background:#FBFCFE;border-right:1px solid var(--line);padding:14px 10px;display:flex;flex-direction:column;gap:13px;}
-.mock__side .m-title{height:8px;border-radius:4px;background:#E2E8F0;}
-.mock__side .m-title.w70{width:70%;}.mock__side .m-title.w45{width:45%;}
-.mock__side .m-item{display:flex;align-items:center;gap:8px;}
-.mock__side .m-item i{width:20px;height:20px;border-radius:6px;background:#E8EEF6;flex:none;display:block;}
-.mock__side .m-item b{height:7px;border-radius:4px;background:#E8EEF6;flex:1;display:block;}
-.mock__side .m-item.is-on i{background:linear-gradient(135deg,var(--brand),var(--violet));}
-.mock__side .m-item.is-on b{background:#CFE2FA;}
-.mock__chat{padding:16px 18px;display:flex;flex-direction:column;gap:11px;min-height:270px;}
-.bubble{max-width:80%;padding:9px 13px;font-size:12.5px;line-height:1.55;border-radius:14px;color:var(--ink-2);}
-.bubble--in{background:#F1F5F9;border-bottom-left-radius:5px;align-self:flex-start;}
-.bubble--out{background:linear-gradient(135deg,var(--brand),var(--brand-600));color:#fff;border-bottom-right-radius:5px;align-self:flex-end;}
-.bubble--cap{
-  background:linear-gradient(135deg,#F3F0FF,#EEF6FF);border:1px solid #E3DDFF;color:#4C1D95;
-  border-bottom-left-radius:5px;align-self:flex-start;font-weight:600;
+.browser__spacer{width:57px;flex:none;}
+
+/* ---- four-column app ---- */
+.app{
+  display:grid;grid-template-columns:198px 280px minmax(0,1fr) 234px;
+  height:548px;background:#fff;font-size:12.5px;line-height:1.5;color:var(--ink-2);
+  text-align:left;overflow:hidden;
 }
-.bubble .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--violet);margin-right:5px;}
-.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto;padding-top:6px;}
-.chip{font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;background:#F1F5F9;color:var(--body);border:1px solid var(--line);}
-.chip--on{background:rgba(31,147,255,.1);color:var(--brand-700);border-color:rgba(31,147,255,.24);}
-.mock__float{
-  position:absolute;right:-16px;bottom:-18px;background:#fff;border:1px solid var(--line);
-  border-radius:14px;padding:11px 15px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;
+.app b{font-weight:600;}
+.app svg{flex:none;}
+.avatar{
+  width:28px;height:28px;border-radius:50%;flex:none;display:grid;place-items:center;
+  font-size:11px;font-weight:700;color:#fff;
+  background:linear-gradient(135deg,var(--a,#1F93FF),var(--b,#7C5CFF));
 }
-.mock__float .ok-dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(16,185,129,.16);}
-.mock__float small{display:block;font-size:11px;color:var(--muted);}
-.mock__float strong{font-size:13px;color:var(--ink);font-weight:700;}
+.avatar--lg{width:46px;height:46px;font-size:16px;}
+.avatar--sm{width:23px;height:23px;font-size:10px;}
+
+/* rail */
+.app-rail{background:#FBFCFE;border-right:1px solid var(--line);display:flex;flex-direction:column;padding:14px 10px;gap:13px;overflow:hidden;}
+.rail-brand{display:flex;align-items:center;gap:8px;padding:0 3px;font-weight:700;color:var(--ink);font-size:12.5px;}
+.rail-brand__m{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,var(--brand),var(--violet));display:grid;place-items:center;color:#fff;font-size:11px;font-weight:800;}
+.rail-search{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 9px;color:var(--muted);font-size:11.5px;}
+.rail-search kbd{margin-left:auto;font-family:var(--mono);font-size:10px;background:#F1F5F9;border-radius:4px;padding:1px 5px;color:var(--muted);}
+.rail-nav{display:flex;flex-direction:column;gap:1px;}
+.rail-item,.rail-sub{display:flex;align-items:center;gap:8px;padding:6px 9px;border-radius:7px;font-size:12px;color:var(--body);white-space:nowrap;overflow:hidden;}
+.rail-item.is-active{background:rgba(31,147,255,.1);color:var(--brand-700);font-weight:600;}
+.rail-item b{margin-left:auto;font-size:10.5px;background:var(--brand);color:#fff;border-radius:999px;padding:1px 6px;}
+.rail-group{margin-top:9px;}
+.rail-group__t{display:flex;align-items:center;gap:8px;padding:5px 9px;font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;}
+.rail-sub{padding-left:26px;font-size:11.5px;}
+.rail-sub.is-on{color:var(--brand-700);font-weight:600;background:rgba(31,147,255,.06);}
+.rail-sub em{margin-left:auto;font-style:normal;font-size:10.5px;color:var(--muted);}
+.rail-user{margin-top:auto;display:flex;align-items:center;gap:8px;padding:9px 4px 0;border-top:1px solid var(--line);font-size:12px;color:var(--ink);font-weight:600;}
+
+/* conversation list */
+.app-list{border-right:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;}
+.list-head{padding:13px 15px 10px;border-bottom:1px solid var(--line);}
+.list-head__t{display:flex;align-items:baseline;gap:8px;margin-bottom:10px;}
+.list-head__t h4{font-size:13.5px;}
+.list-head__t span{font-size:11px;color:var(--muted);}
+.fchips{display:flex;gap:6px;}
+.fchip{font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--body);white-space:nowrap;}
+.fchip.is-on{background:var(--ink);color:#fff;border-color:var(--ink);}
+.list-items{overflow:hidden;}
+.citem{display:flex;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);}
+.citem.is-active{background:rgba(31,147,255,.06);box-shadow:inset 2px 0 0 var(--brand);}
+.citem__b{min-width:0;flex:1;}
+.citem__top{display:flex;align-items:baseline;gap:8px;}
+.citem__top b{font-size:12.5px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.citem__top time{margin-left:auto;font-size:10.5px;color:var(--muted);flex:none;}
+.citem__b p{font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
+.ctags{display:flex;gap:5px;margin-top:6px;}
+.ctag{font-size:9.5px;padding:1px 7px;border-radius:4px;background:#F1F5F9;color:var(--body);border:1px solid var(--line);}
+.ctag--wa{background:rgba(37,211,102,.12);color:#0E7A45;border-color:rgba(37,211,102,.3);}
+.ctag--web{background:rgba(31,147,255,.1);color:var(--brand-700);border-color:rgba(31,147,255,.24);}
+.ctag--mail{background:rgba(245,158,11,.12);color:#96590A;border-color:rgba(245,158,11,.3);}
+.ctag--tg{background:rgba(0,136,204,.12);color:#075E8C;border-color:rgba(0,136,204,.28);}
+
+/* chat column */
+.app-chat{display:flex;flex-direction:column;overflow:hidden;background:#fff;}
+.chat-head{display:flex;align-items:center;gap:10px;padding:11px 15px;border-bottom:1px solid var(--line);}
+.chat-head b{font-size:12.5px;color:var(--ink);display:block;}
+.chat-head small{font-size:10.5px;color:var(--muted);}
+.chat-head__act{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.chat-timer{font-size:10.5px;color:#96590A;background:rgba(245,158,11,.14);border-radius:999px;padding:2px 9px;font-weight:600;white-space:nowrap;}
+.chat-resolve{font-size:11px;font-weight:600;color:#fff;background:var(--brand);border-radius:7px;padding:5px 12px;white-space:nowrap;}
+.chat-tabs{display:flex;gap:16px;padding:9px 15px 0;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--muted);}
+.chat-tabs span{padding-bottom:8px;border-bottom:2px solid transparent;}
+.chat-tabs .is-on{color:var(--brand-700);font-weight:600;border-bottom-color:var(--brand);}
+.chat-body{flex:1;overflow:hidden;padding:14px 15px;display:flex;flex-direction:column;gap:10px;}
+.msg{max-width:80%;}
+.msg__b{padding:9px 12px;border-radius:12px;font-size:12px;line-height:1.6;}
+.msg__t{font-size:10px;color:var(--muted);margin-top:3px;}
+.msg--in .msg__b{background:#F1F5F9;border-top-left-radius:4px;}
+.msg--out{align-self:flex-end;}
+.msg--out .msg__b{background:linear-gradient(135deg,var(--brand),var(--brand-600));color:#fff;border-top-right-radius:4px;}
+.msg--out .msg__t{text-align:right;}
+.chat-reply{border-top:1px solid var(--line);padding:10px 15px 13px;}
+.reply-tabs{display:flex;gap:14px;font-size:11px;color:var(--muted);margin-bottom:8px;}
+.reply-tabs .is-on{color:var(--ink);font-weight:600;}
+.reply-box{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:7px 11px;}
+.reply-box span{flex:1;font-size:11.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.reply-send{font-size:11px;font-weight:600;color:#fff;background:var(--brand);border-radius:7px;padding:5px 12px;}
+
+/* contact panel */
+.app-panel{border-left:1px solid var(--line);background:#FBFCFE;padding:14px 13px 0;overflow:hidden;display:flex;flex-direction:column;gap:11px;}
+.panel-h{font-size:12.5px;font-weight:700;color:var(--ink);}
+.panel-p{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding-bottom:12px;border-bottom:1px solid var(--line);}
+.panel-p b{font-size:13px;color:var(--ink);}
+.panel-p small{font-size:10.5px;color:var(--muted);line-height:1.5;}
+.pfield{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--body);}
+.pfield svg{color:var(--muted);}
+.pfield em{margin-left:auto;font-style:normal;color:var(--ink-2);font-weight:500;}
+.psec{border-top:1px solid var(--line);padding-top:10px;}
+.psec h5{font-size:10.5px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin:0 0 8px;}
+.prow{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--body);padding:4px 0;}
+.prow b{margin-left:auto;font-size:11px;color:var(--ink);}
+.pbadge{font-size:10px;padding:2px 8px;border-radius:5px;background:#fff;border:1px solid var(--line);color:var(--body);}
+.pbadge--amber{background:rgba(245,158,11,.15);color:#96590A;border-color:rgba(245,158,11,.32);}
 
 /* ===================== Marquee / stack bar ===================== */
 .stackbar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#FCFDFF;}
@@ -361,9 +436,20 @@ img{max-width:100%;display:block;}
 .rv.is-in{opacity:1;transform:none;}
 
 /* ===================== Responsive ===================== */
+@media (max-width:1100px){
+  .nav{display:none;}
+  .burger{display:grid;}
+  .header__right .btn--primary{display:none;}
+  .nav.is-open{
+    display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;
+    background:#fff;border-bottom:1px solid var(--line);padding:14px 24px 22px;gap:2px;
+    box-shadow:0 24px 40px -28px rgba(15,23,42,.5);
+  }
+  .nav.is-open a{padding:12px 10px;font-size:16px;}
+}
 @media (max-width:1024px){
-  .hero__grid{grid-template-columns:1fr;gap:44px;}
-  .hero__lead{max-width:none;}
+  .app{grid-template-columns:186px 252px minmax(0,1fr);}
+  .app-panel{display:none;}
   .grid--4{grid-template-columns:repeat(2,1fr);}
   .plans{grid-template-columns:1fr;max-width:520px;margin:0 auto;}
   .plan--hot{order:-1;}
@@ -376,15 +462,8 @@ img{max-width:100%;display:block;}
   .cmp{min-width:620px;}
 }
 @media (max-width:860px){
-  .nav{display:none;}
-  .burger{display:grid;}
-  .nav.is-open{
-    display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;
-    background:#fff;border-bottom:1px solid var(--line);padding:14px 24px 22px;gap:2px;
-    box-shadow:0 24px 40px -28px rgba(15,23,42,.5);
-  }
-  .nav.is-open a{padding:12px 10px;font-size:16px;}
-  .header__right .btn--primary{display:none;}
+  .app{grid-template-columns:238px minmax(0,1fr);}
+  .app-rail{display:none;}
 }
 @media (max-width:720px){
   .section{padding:68px 0;}
@@ -394,10 +473,12 @@ img{max-width:100%;display:block;}
   .steps{grid-template-columns:1fr;}
   .cta{padding:36px 24px;border-radius:var(--radius);}
   .card,.plan{padding:24px;}
-  .mock__body{grid-template-columns:0 1fr;}
-  .mock__side{display:none;}
-  .mock__float{right:8px;bottom:8px;}
-  .hero__stats{gap:24px;}
+  .app{grid-template-columns:minmax(0,1fr);height:auto;}
+  .app-list{display:none;}
+  .app-chat{min-height:420px;}
+  .browser__url{max-width:none;}
+  .showcase{margin-top:34px;}
+  .hero__stats{gap:24px;margin-top:36px;}
   .footer__grid{grid-template-columns:1fr;}
   .container{padding:0 18px;}
   .cmp th,.cmp td{padding:13px 14px;font-size:14px;}
@@ -449,8 +530,8 @@ img{max-width:100%;display:block;}
 <main>
 <!-- ===================== HERO ===================== -->
 <section class="hero">
-  <div class="container hero__grid">
-    <div>
+  <div class="container">
+    <div class="hero__intro">
       <span class="pill"><b data-i18n="hero.pill.badge">开源</b><span data-i18n="hero.pill.text">GitHub 36k+ Star · MIT 协议 · 可完全自托管</span></span>
       <h1>
         <span data-i18n="hero.title.a">把客服系统</span><span class="grad" data-i18n="hero.title.b">装进你自己的服务器</span>
@@ -470,50 +551,217 @@ img{max-width:100%;display:block;}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>
         <span data-i18n="hero.note">支持独立服务器 / VPS / 内网私有化部署 · 提供源站与 CDN 分离方案</span>
       </p>
-      <div class="hero__stats">
-        <div><div class="stat__num">36k<span>+</span></div><div class="stat__label" data-i18n="hero.stat1">GitHub Star</div></div>
-        <div><div class="stat__num">9<span>+</span></div><div class="stat__label" data-i18n="hero.stat2">全渠道接入</div></div>
-        <div><div class="stat__num">MIT</div><div class="stat__label" data-i18n="hero.stat3">开源协议</div></div>
-        <div><div class="stat__num">100<span>%</span></div><div class="stat__label" data-i18n="hero.stat4">数据自主</div></div>
+    </div>
+
+    <!-- 客服工作台界面示意（四栏：导航 / 会话列表 / 对话 / 客户资料） -->
+    <div class="showcase">
+      <div class="browser">
+        <div class="browser__bar">
+          <span class="dots"><i class="dot dot--r"></i><i class="dot dot--y"></i><i class="dot dot--g"></i></span>
+          <span class="browser__url" data-i18n="ui.url">chat.example.com — Chatwoot 收件箱</span>
+          <span class="browser__spacer"></span>
+        </div>
+
+        <div class="app">
+          <!-- 1) 左侧导航 -->
+          <aside class="app-rail">
+            <div class="rail-brand">
+              <span class="rail-brand__m">C</span>
+              <span data-i18n="brand.name">Chatwoot 客服</span>
+            </div>
+            <div class="rail-search">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <span data-i18n="ui.rail.search">搜索或跳转…</span>
+              <kbd>⌘K</kbd>
+            </div>
+            <nav class="rail-nav">
+              <span class="rail-item is-active">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3z"/><path d="M3 13h5l1 2h6l1-2h5"/></svg>
+                <span data-i18n="ui.rail.inbox">我的收件箱</span><b>2</b>
+              </span>
+              <div class="rail-group">
+                <div class="rail-group__t">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H9l-5 4z"/></svg>
+                  <span data-i18n="ui.rail.conv">会话</span>
+                </div>
+                <span class="rail-sub is-on"><span data-i18n="ui.rail.all">全部会话</span><em>20</em></span>
+                <span class="rail-sub" data-i18n="ui.rail.mentions">@提及</span>
+                <span class="rail-sub" data-i18n="ui.rail.participating">我参与的</span>
+                <span class="rail-sub" data-i18n="ui.rail.unassigned">未分配</span>
+              </div>
+              <div class="rail-group">
+                <div class="rail-group__t">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="3"/><path d="M3 20c0-3 2.7-5 6-5s6 2 6 5"/></svg>
+                  <span data-i18n="ui.rail.teams">团队</span>
+                </div>
+                <span class="rail-sub" data-i18n="ui.rail.support">技术支持</span>
+              </div>
+              <div class="rail-group">
+                <div class="rail-group__t">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17"/></svg>
+                  <span data-i18n="ui.rail.channels">渠道</span>
+                </div>
+                <span class="rail-sub">WhatsApp</span>
+                <span class="rail-sub">Web Chat</span>
+              </div>
+            </nav>
+            <div class="rail-user">
+              <span class="avatar avatar--sm">X</span>
+              <span data-i18n="ui.agent">林晓</span>
+            </div>
+          </aside>
+
+          <!-- 2) 会话列表 -->
+          <section class="app-list">
+            <header class="list-head">
+              <div class="list-head__t">
+                <h4 data-i18n="ui.list.title">会话</h4>
+                <span><span data-i18n="ui.list.open">待处理</span> · 20</span>
+              </div>
+              <div class="fchips">
+                <span class="fchip is-on" data-i18n="ui.list.mine">我的</span>
+                <span class="fchip" data-i18n="ui.list.unassigned">未分配</span>
+              </div>
+            </header>
+            <div class="list-items">
+              <article class="citem is-active">
+                <span class="avatar" style="--a:#1F93FF;--b:#7C5CFF">C</span>
+                <div class="citem__b">
+                  <div class="citem__top"><b data-i18n="ui.c1.name">陈美玲</b><time data-i18n="ui.c1.time">2 分钟</time></div>
+                  <p data-i18n="ui.c1.msg">订单 #88213 还没发货，能帮我查一下吗？</p>
+                  <div class="ctags"><span class="ctag ctag--wa">WhatsApp</span><span class="ctag" data-i18n="ui.tag.logistics">物流</span></div>
+                </div>
+              </article>
+              <article class="citem">
+                <span class="avatar" style="--a:#10B981;--b:#059669">F</span>
+                <div class="citem__b">
+                  <div class="citem__top"><b data-i18n="ui.c2.name">王思远</b><time data-i18n="ui.c2.time">15 分钟</time></div>
+                  <p data-i18n="ui.c2.msg">谢谢，问题已经解决了！</p>
+                  <div class="ctags"><span class="ctag ctag--web">Web Chat</span><span class="ctag" data-i18n="ui.tag.resolved">已解决</span></div>
+                </div>
+              </article>
+              <article class="citem">
+                <span class="avatar" style="--a:#F59E0B;--b:#D97706">E</span>
+                <div class="citem__b">
+                  <div class="citem__top"><b data-i18n="ui.c3.name">李小雅</b><time data-i18n="ui.c3.time">32 分钟</time></div>
+                  <p data-i18n="ui.c3.msg">发票可以重新开一张吗？抬头写错了。</p>
+                  <div class="ctags"><span class="ctag ctag--mail">Email</span><span class="ctag" data-i18n="ui.tag.billing">账单</span></div>
+                </div>
+              </article>
+              <article class="citem">
+                <span class="avatar" style="--a:#0088CC;--b:#006699">M</span>
+                <div class="citem__b">
+                  <div class="citem__top"><b data-i18n="ui.c4.name">张伟</b><time data-i18n="ui.c4.time">1 小时</time></div>
+                  <p data-i18n="ui.c4.msg">登录不上，一直提示密码错误。</p>
+                  <div class="ctags"><span class="ctag ctag--tg">Telegram</span><span class="ctag" data-i18n="ui.tag.bug">Bug</span></div>
+                </div>
+              </article>
+              <article class="citem">
+                <span class="avatar" style="--a:#7C5CFF;--b:#6D28D9">N</span>
+                <div class="citem__b">
+                  <div class="citem__top"><b data-i18n="ui.c5.name">刘洋</b><time data-i18n="ui.c5.time">2 小时</time></div>
+                  <p data-i18n="ui.c5.msg">你们的付费方案怎么算？想对比一下。</p>
+                  <div class="ctags"><span class="ctag ctag--web">Web Chat</span><span class="ctag" data-i18n="ui.tag.sales">售前</span></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- 3) 对话区 -->
+          <main class="app-chat">
+            <header class="chat-head">
+              <span class="avatar" style="--a:#1F93FF;--b:#7C5CFF">C</span>
+              <div>
+                <b data-i18n="ui.c1.name">陈美玲</b>
+                <small data-i18n="ui.chat.sub">WhatsApp · 订单 #88213</small>
+              </div>
+              <div class="chat-head__act">
+                <span class="chat-timer" data-i18n="ui.chat.timer">待响应 5 分钟</span>
+                <span class="chat-resolve" data-i18n="ui.chat.resolve">解决</span>
+              </div>
+            </header>
+            <div class="chat-tabs">
+              <span class="is-on" data-i18n="ui.chat.tab1">消息</span>
+              <span data-i18n="ui.chat.tab2">客户资料</span>
+            </div>
+            <div class="chat-body">
+              <div class="msg msg--in">
+                <div class="msg__b" data-i18n="ui.m1">你好，我昨天改了密码，现在网站登录不上了，手机 App 却正常。</div>
+                <div class="msg__t">09:02</div>
+              </div>
+              <div class="msg msg--out">
+                <div class="msg__b" data-i18n="ui.m2">您好，我是客服小林。听上去像是浏览器缓存了旧登录态，能先退出登录、清一下站点数据再试吗？</div>
+                <div class="msg__t">09:14</div>
+              </div>
+              <div class="msg msg--in">
+                <div class="msg__b" data-i18n="ui.m3">清完可以登录了。我在别的设备上也要操作一次吗？</div>
+                <div class="msg__t">09:24</div>
+              </div>
+              <div class="msg msg--out">
+                <div class="msg__b" data-i18n="ui.m4">只有在还报登录错误时才需要。手机 App 正常的话就不用管它。</div>
+                <div class="msg__t">09:46</div>
+              </div>
+              <div class="msg msg--in">
+                <div class="msg__b" data-i18n="ui.m5">好的，谢谢，回复很快！</div>
+                <div class="msg__t">10:02</div>
+              </div>
+            </div>
+            <footer class="chat-reply">
+              <div class="reply-tabs">
+                <span class="is-on" data-i18n="ui.chat.reply">回复</span>
+                <span data-i18n="ui.chat.note">私密备注</span>
+              </div>
+              <div class="reply-box">
+                <span data-i18n="ui.chat.ph">输入回复，按 / 插入快捷回复</span>
+                <span class="reply-send" data-i18n="ui.chat.send">发送</span>
+              </div>
+            </footer>
+          </main>
+
+          <!-- 4) 客户资料 -->
+          <aside class="app-panel">
+            <div class="panel-h" data-i18n="ui.panel.title">客户资料</div>
+            <div class="panel-p">
+              <span class="avatar avatar--lg" style="--a:#1F93FF;--b:#7C5CFF">C</span>
+              <b data-i18n="ui.c1.name">陈美玲</b>
+              <small data-i18n="ui.panel.role">运营负责人 · 星辰科技</small>
+            </div>
+            <div class="pfield">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v9A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5z"/><path d="m3.6 7 7.5 5.4a1.6 1.6 0 0 0 1.8 0L20.4 7"/></svg>
+              <span data-i18n="ui.panel.email">邮箱</span><em>chen@nova-tech.com</em>
+            </div>
+            <div class="pfield">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+              <span data-i18n="ui.panel.phone">电话</span><em>+86 138 0000 0000</em>
+            </div>
+            <div class="psec">
+              <h5 data-i18n="ui.panel.actions">会话操作</h5>
+              <div class="prow"><span data-i18n="ui.panel.agent">指派客服</span><b data-i18n="ui.agent">林晓</b></div>
+              <div class="prow"><span data-i18n="ui.panel.team">指派团队</span><span class="pbadge" data-i18n="ui.rail.support">技术支持</span></div>
+              <div class="prow"><span data-i18n="ui.panel.priority">优先级</span><span class="pbadge pbadge--amber" data-i18n="ui.priority.high">高</span></div>
+            </div>
+            <div class="psec">
+              <h5 data-i18n="ui.panel.labels">标签</h5>
+              <div class="prow">
+                <span class="pbadge" data-i18n="ui.tag.logistics">物流</span>
+                <span class="pbadge" data-i18n="ui.tag.refund">退款</span>
+              </div>
+            </div>
+            <div class="psec">
+              <h5 data-i18n="ui.panel.macros">宏命令</h5>
+              <div class="prow"><span data-i18n="ui.macro.1">发送物流查询链接</span></div>
+              <div class="prow"><span data-i18n="ui.macro.2">请求订单截图</span></div>
+            </div>
+          </aside>
+        </div>
       </div>
     </div>
 
-    <div class="hero__visual">
-      <div class="mock">
-        <div class="mock__bar">
-          <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
-          <span class="mock__url">chat.example.com — Chatwoot 收件箱</span>
-        </div>
-        <div class="mock__body">
-          <aside class="mock__side">
-            <span class="m-title w70"></span>
-            <div class="m-item is-on"><i></i><b></b></div>
-            <div class="m-item"><i></i><b></b></div>
-            <div class="m-item"><i></i><b></b></div>
-            <span class="m-title w45"></span>
-            <div class="m-item"><i></i><b></b></div>
-            <div class="m-item"><i></i><b></b></div>
-          </aside>
-          <div class="mock__chat">
-            <div class="bubble bubble--in" data-i18n="mock.1">你好，我的订单还没发货，能帮我查一下吗？</div>
-            <div class="bubble bubble--cap"><span class="tag">CAPTAIN</span><span data-i18n="mock.2">已为你查到订单 #88213，正在打包，预计今天 18:00 前发出。</span></div>
-            <div class="bubble bubble--out" data-i18n="mock.3">已为您加急，物流单号稍后同步给你 🙌</div>
-            <div class="chips">
-              <span class="chip chip--on">WhatsApp</span>
-              <span class="chip chip--on">Web Chat</span>
-              <span class="chip">Email</span>
-              <span class="chip">Telegram</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="mock__float">
-        <span class="ok-dot"></span>
-        <span>
-          <small data-i18n="mock.float.k">容器状态</small>
-          <strong>4/4 containers healthy</strong>
-        </span>
-      </div>
+    <div class="hero__stats">
+      <div><div class="stat__num">36k<span>+</span></div><div class="stat__label" data-i18n="hero.stat1">GitHub Star</div></div>
+      <div><div class="stat__num">9<span>+</span></div><div class="stat__label" data-i18n="hero.stat2">全渠道接入</div></div>
+      <div><div class="stat__num">MIT</div><div class="stat__label" data-i18n="hero.stat3">开源协议</div></div>
+      <div><div class="stat__num">100<span>%</span></div><div class="stat__label" data-i18n="hero.stat4">数据自主</div></div>
     </div>
   </div>
 </section>
@@ -1000,10 +1248,70 @@ img{max-width:100%;display:block;}
       "hero.stat2": "channels supported",
       "hero.stat3": "license",
       "hero.stat4": "data ownership",
-      "mock.1": "Hi, my order hasn't shipped yet — could you check it for me?",
-      "mock.2": "Order #88213 is packed and will ship before 6:00 PM today.",
-      "mock.3": "I've expedited it for you — tracking number coming shortly 🙌",
-      "mock.float.k": "Containers",
+      "ui.url": "chat.example.com — Chatwoot Inbox",
+      "ui.rail.search": "Search or jump to…",
+      "ui.rail.inbox": "My Inbox",
+      "ui.rail.conv": "Conversations",
+      "ui.rail.all": "All Conversations",
+      "ui.rail.mentions": "Mentions",
+      "ui.rail.participating": "Participating",
+      "ui.rail.unassigned": "Unassigned",
+      "ui.rail.teams": "Teams",
+      "ui.rail.support": "Technical Support",
+      "ui.rail.channels": "Channels",
+      "ui.list.title": "Conversations",
+      "ui.list.open": "Open",
+      "ui.list.mine": "Mine",
+      "ui.list.unassigned": "Unassigned",
+      "ui.c1.name": "Candice Chen",
+      "ui.c1.time": "2m",
+      "ui.c1.msg": "Order #88213 still hasn't shipped — can you look into it?",
+      "ui.c2.name": "Felix Wang",
+      "ui.c2.time": "15m",
+      "ui.c2.msg": "Thanks, that solved it!",
+      "ui.c3.name": "Elena Li",
+      "ui.c3.time": "32m",
+      "ui.c3.msg": "Could you reissue the invoice? The company name is wrong.",
+      "ui.c4.name": "Marcus Zhang",
+      "ui.c4.time": "1h",
+      "ui.c4.msg": "Can't log in — it keeps saying wrong password.",
+      "ui.c5.name": "Nora Liu",
+      "ui.c5.time": "2h",
+      "ui.c5.msg": "How does your pricing work? I'd like to compare.",
+      "ui.tag.logistics": "Logistics",
+      "ui.tag.resolved": "Resolved",
+      "ui.tag.billing": "Billing",
+      "ui.tag.bug": "Bug",
+      "ui.tag.sales": "Pre-sales",
+      "ui.tag.refund": "Refund",
+      "ui.agent": "Xiaolin",
+      "ui.chat.sub": "WhatsApp · Order #88213",
+      "ui.chat.timer": "5m to respond",
+      "ui.chat.resolve": "Resolve",
+      "ui.chat.tab1": "Messages",
+      "ui.chat.tab2": "Contact",
+      "ui.m1": "Hi, I changed my password yesterday and now I can't log in on the web — the mobile app still works.",
+      "ui.m2": "Hi, this is Xiaolin from support. Sounds like a stale browser session — could you log out, clear the site data and try again?",
+      "ui.m3": "That worked. Do I need to do this on my other devices too?",
+      "ui.m4": "Only if they still show the login error. Since the mobile app is fine, you can leave it as is.",
+      "ui.m5": "Perfect, thanks — that was quick!",
+      "ui.chat.reply": "Reply",
+      "ui.chat.note": "Private note",
+      "ui.chat.ph": "Type your reply, press / for canned responses",
+      "ui.chat.send": "Send",
+      "ui.panel.title": "Contact",
+      "ui.panel.role": "Head of Operations · Nova Tech",
+      "ui.panel.email": "Email",
+      "ui.panel.phone": "Phone",
+      "ui.panel.actions": "Conversation Actions",
+      "ui.panel.agent": "Assigned Agent",
+      "ui.panel.team": "Assigned Team",
+      "ui.panel.priority": "Priority",
+      "ui.panel.labels": "Labels",
+      "ui.panel.macros": "Macros",
+      "ui.priority.high": "High",
+      "ui.macro.1": "Send tracking link",
+      "ui.macro.2": "Request order screenshot",
       "stack.label": "Stack & deployment",
       "feat.eyebrow": "Core Features",
       "feat.title": "One dashboard for every customer conversation",
