@@ -14,13 +14,157 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Chatwoot 中文站 — 开源自托管客服系统 · 容器化一键部署</title>
+
+<!-- ===================== 基础 SEO ===================== -->
 <meta name="description" content="Chatwoot 是 Intercom / Zendesk 的开源替代品，集全渠道收件箱、AI 客服 Captain、帮助中心于一体（GitHub 36k+ Star，MIT 协议）。我们提供 Docker 容器化部署服务，把系统装到你自己服务器上，数据完全自主可控。">
 <meta name="keywords" content="Chatwoot,开源客服系统,自托管客服,Chatwoot 部署,Chatwoot Docker,在线客服,Intercom 替代,Zendesk 替代,WhatsApp 客服">
+<link rel="canonical" href="https://chat.wevva.top/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<meta name="author" content="Chatwoot 中文站">
+
+<!-- ===================== Open Graph（社交分享卡片） ===================== -->
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://chat.wevva.top/">
+<meta property="og:site_name" content="Chatwoot 中文站">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:title" content="Chatwoot 中文站 — 开源自托管客服系统 · 容器化一键部署">
 <meta property="og:description" content="36k+ Star 的开源客服系统，装到你自己服务器上：全渠道收件箱 + AI 客服 + 帮助中心，数据自主可控。">
+<meta property="og:image" content="https://chat.wevva.top/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Chatwoot 中文站 — 把客服系统装进你自己的服务器">
+
+<!-- ===================== Twitter / X 卡片 ===================== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Chatwoot 中文站 — 开源自托管客服系统 · 容器化一键部署">
+<meta name="twitter:description" content="36k+ Star 的开源客服系统，装到你自己服务器上：全渠道收件箱 + AI 客服 + 帮助中心，数据自主可控。">
+<meta name="twitter:image" content="https://chat.wevva.top/og-cover.png">
+<meta name="twitter:image:alt" content="Chatwoot 中文站 — 把客服系统装进你自己的服务器">
 <meta name="theme-color" content="#1F93FF">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%231F93FF'/%3E%3Cpath d='M26 32h48v30H52l-14 12V62H26z' fill='white'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+/* 结构化数据：帮助 Google 理解站点并争取 FAQ / 服务富摘要 */
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://chat.wevva.top/#website",
+      "url": "https://chat.wevva.top/",
+      "name": "Chatwoot 中文站",
+      "alternateName": "Chatwoot 客服",
+      "description": "Chatwoot 中文介绍与 Docker 容器化部署服务，把开源自托管客服系统装进你自己的服务器。",
+      "inLanguage": "zh-CN",
+      "publisher": {
+        "@id": "https://chat.wevva.top/#organization"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://chat.wevva.top/#organization",
+      "name": "Chatwoot 中文站",
+      "url": "https://chat.wevva.top/",
+      "description": "提供 Chatwoot 开源自托管客服系统的容器化部署、渠道接入与运维托管服务。",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://chat.wevva.top/og-cover.png",
+        "width": 1200,
+        "height": 630
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "email": "marxkali32502@gmail.com",
+          "url": "https://t.me/chatwoot_kefu",
+          "availableLanguage": [
+            "zh-CN",
+            "en"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://chat.wevva.top/#service",
+      "name": "Chatwoot 容器化部署服务",
+      "serviceType": "开源客服系统自托管部署与运维",
+      "description": "在客户自有服务器上完成 Chatwoot 的 Docker 容器化部署，含环境搭建、全渠道接入、上线交付与后续运维托管，数据 100% 留在客户自己机器上。",
+      "provider": {
+        "@id": "https://chat.wevva.top/#organization"
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Worldwide"
+      },
+      "url": "https://chat.wevva.top/#svc"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://chat.wevva.top/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "部署 Chatwoot 需要什么配置的服务器？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "官方最低要求约 1 核 2G 内存、20G 磁盘即可跑起来，但实际建议 2 核 4G 内存 + 40G 以上 SSD 。Chatwoot 由多个进程组成（Rails 应用、Sidekiq 后台任务、PostgreSQL、Redis），内存偏小时容易出现后台任务堆积。并发客服人数较多时，建议 4 核 8G 起。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "系统是装在谁的服务器上？数据归谁？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "装在你自己的服务器上，全部数据（对话记录、客户资料、附件）都存于你的磁盘与数据库中，我们不接触、不持有、不中转你的业务数据。你随时可以自己登录服务器查看、导出、迁移。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "大概多久能上线？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "服务器与域名就绪的前提下，标准部署一般 1 个工作日内完成并交付；需要接入 WhatsApp、配置邮件通道或对接内部系统的，视第三方审核时间而定，通常 1-3 个工作日。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "后期升级、维护怎么办？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chatwoot 迭代较快，建议跟随稳定版升级。我们提供两种情况：一是你自己按交付文档操作（我们会写好升级与回滚步骤）；二是把运维托管给我们，包含升级、备份巡检、故障排查与告警处理。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "能不能对接微信 / 企业微信 / 钉钉？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chatwoot 原生支持的是网站聊天、邮件、WhatsApp、Facebook、Instagram、Telegram、LINE、SMS 等渠道。微信生态需要通过开放 API 或第三方中转做定制对接，属于二次开发范围，我们可以评估后提供方案。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "部署完我不会运维，会有人教我 / 帮我吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "会。交付时我们会宣讲后台日常操作（客服分配、快捷回复、报表查看），并提供文档。标准方案含 30 天答疑；生产级与企业方案含更长周期的技术支持与运维托管选项。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "会不会有版权或合规风险？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chatwoot 本体以 MIT 协议开源发布，可免费商用、可修改、可自托管，这是它被广泛采用的基础。本站是独立的第三方部署服务，与 Chatwoot Inc. 无官方隶属关系；涉及的第三方渠道（WhatsApp 等）需遵守其各自平台政策。"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <style>
 /* ===================== Design Tokens ===================== */
 :root{
@@ -1490,18 +1634,35 @@ img{max-width:100%;display:block;}
     document.querySelectorAll('[data-lang-btn]').forEach(function (b) {
       b.classList.toggle('is-on', b.getAttribute('data-lang-btn') === lang);
     });
-    try { localStorage.setItem('cw-lang', lang); } catch (e) {}
+    // 语言状态同步到 URL，便于分享与区分收录；同时校正 canonical
+    try {
+      localStorage.setItem('cw-lang', lang);
+      var u = new URL(location.href);
+      if (lang === 'en') u.searchParams.set('lang', 'en');
+      else u.searchParams.delete('lang');
+      history.replaceState(null, '', u.pathname + (u.search || '') + u.hash);
+      var cl = document.querySelector('link[rel="canonical"]');
+      if (cl) cl.setAttribute('href', lang === 'en'
+        ? 'https://chat.wevva.top/?lang=en'
+        : 'https://chat.wevva.top/');
+    } catch (e) {}
   }
 
   document.querySelectorAll('[data-lang-btn]').forEach(function (b) {
     b.addEventListener('click', function () { apply(b.getAttribute('data-lang-btn')); });
   });
 
-  // 初始语言：优先本地记忆，其次浏览器语言
-  var saved = null;
+  // 初始语言：URL 参数 > 本地记忆 > 默认中文
+  // 刻意不读 navigator.language —— 否则 Googlebot 以 en-US 抓取时整页会被渲染成英文，
+  // 导致中文站被索引成英文内容、关键词全面错位。爬虫必须稳定拿到中文版本。
+  // 英文访客可用 ?lang=en 直达英文版（该 URL 由 canonical 自行声明）。
+  var saved = null, urlLang = null;
   try { saved = localStorage.getItem('cw-lang'); } catch (e) {}
-  var nav = (navigator.language || 'zh').toLowerCase();
-  apply(saved || (nav.indexOf('zh') === 0 ? 'zh' : (nav.indexOf('en') === 0 ? 'en' : 'zh')));
+  try {
+    var m = /[?&]lang=([a-zA-Z-]+)/.exec(location.search);
+    if (m) urlLang = m[1].toLowerCase().indexOf('en') === 0 ? 'en' : 'zh';
+  } catch (e) {}
+  apply(urlLang || saved || 'zh');
 })();
 
 /* =====================================================================

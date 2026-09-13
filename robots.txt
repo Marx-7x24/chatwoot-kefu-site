@@ -1,0 +1,30 @@
+# robots.txt — Chatwoot 中文站
+# https://chat.wevva.top/
+#
+# 说明：Cloudflare 会在此文件末尾自动追加其托管的 AI 爬虫策略
+# （Content Signals），属正常现象，不影响搜索引擎收录。
+
+User-agent: *
+Allow: /
+
+# —— 主流搜索引擎：显式放行，确保收录 ——
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# —— 站点地图 ——
+Sitemap: https://chat.wevva.top/sitemap.xml
